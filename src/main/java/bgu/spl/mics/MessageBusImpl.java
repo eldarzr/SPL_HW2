@@ -13,7 +13,7 @@ import java.util.Queue;
  */
 public class MessageBusImpl implements MessageBus {
 
-	public Map<MicroService , Queue<Message>> queues = new HashMap<>();
+	private Map<MicroService , Queue<Message>> queues = new HashMap<>();
 
 
 	@Override
@@ -48,18 +48,39 @@ public class MessageBusImpl implements MessageBus {
 	}
 
 	@Override
-	//@PRE: queues.containsKey(m)==false
-	//@POST: queues.containsKey(m)==true
+	/**
+	 *@PRE: queues.containsKey(m)==false
+	 * @POST: queues.containsKey(m)==true
+	 */
 	public void register(MicroService m) {
 		// TODO Auto-generated method stub
 	}
 
 	@Override
-	//@PRE: queues.containsKey(m)==true
-	//@POST: queues.containsKey(m)==false
+	/**@PRE: queues.containsKey(m)==true
+	* @POST: queues.containsKey(m)==false
+	 */
 	public void unregister(MicroService m) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public boolean isRegistered(MicroService m) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isEventSubscribedBy(Class<? extends Event> type, MicroService m) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean isBroadcastSubscribedBy(Class<? extends Broadcast> type, MicroService m) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 	@Override

@@ -68,6 +68,28 @@ public interface MessageBus {
     void register(MicroService m);
 
     /**
+     * return if {@link MicroService} {@code m} is registered.
+     * <p>
+     * @param m the micro-service to create a queue for.
+     */
+    boolean isRegistered(MicroService m);
+
+    /**
+     * return if {@link MicroService} {@code m} is subscribed to broadcast.
+     * <p>
+     * @param m the micro-service to create a queue for.
+     */
+
+    boolean isBroadcastSubscribedBy(Class<? extends Broadcast> type, MicroService m);
+
+    /**
+     * return if {@link MicroService} {@code m} is subscribed to event.
+     * <p>
+     * @param m the micro-service to create a queue for.
+     */
+    boolean isEventSubscribedBy(Class<? extends Event> type, MicroService m);
+
+    /**
      * Removes the message queue allocated to {@code m} via the call to
      * {@link #register(bgu.spl.mics.MicroService)} and cleans all references
      * related to {@code m} in this message-bus. If {@code m} was not
