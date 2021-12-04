@@ -14,4 +14,16 @@ public class DataBatch {
         this.index = index;
         this.data = data;
     }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public Data getData() {
+        return data;
+    }
+
+    public boolean isProcessed(){
+        return false;
+    }
 }

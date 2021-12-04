@@ -1,5 +1,7 @@
 package bgu.spl.mics;
 
+import java.util.List;
+
 /**
  * The message-bus is a shared object used for communication between
  * micro-services.
@@ -8,6 +10,7 @@ package bgu.spl.mics;
  * it is shared between all the micro-services in the system.
  * You must not alter any of the given methods of this interface. 
  * You cannot add methods to this interface.
+ * @INV:
  */
 public interface MessageBus {
 
@@ -17,6 +20,8 @@ public interface MessageBus {
      * @param <T>  The type of the result expected by the completed event.
      * @param type The type to subscribe to,
      * @param m    The subscribing micro-service.
+     * @pre: !isEventSubscribedBy(type,m) & type != null & m != null
+     * @post: isEventSubscribedBy(type,m)
      */
     <T> void subscribeEvent(Class<? extends Event<T>> type, MicroService m);
 
@@ -25,6 +30,8 @@ public interface MessageBus {
      * <p>
      * @param type 	The type to subscribe to.
      * @param m    	The subscribing micro-service.
+     * @pre: !isBroadcastSubscribedBy(type,m) && type != null && m != null
+     * @post: isBroadcastSubscribedBy(type,m)
      */
     void subscribeBroadcast(Class<? extends Broadcast> type, MicroService m);
 
@@ -37,6 +44,8 @@ public interface MessageBus {
      * @param <T>    The type of the result expected by the completed event.
      * @param e      The completed event.
      * @param result The resolved result of the completed event.
+     * @pre: !e.getFuture().isDone() && e!= null && result != null
+     * @post: e.getFuture().isDone() & e.getFuture().get().equals(result)
      */
     <T> void complete(Event<T> e, T result);
 
@@ -45,6 +54,8 @@ public interface MessageBus {
      * micro-services subscribed to {@code b.getClass()}.
      * <p>
      * @param b 	The message to added to the queues.
+     * @pre: b != null
+     * @post: for each (MicroService m: getMicroServiceSubscribedToBroadcast(b)) : queues.get(m).contains(b))
      */
     void sendBroadcast(Broadcast b);
 
@@ -57,6 +68,8 @@ public interface MessageBus {
      * @param e     	The event to add to the queue.
      * @return {@link Future<T>} object to be resolved once the processing is complete,
      * 	       null in case no micro-service has subscribed to {@code e.getClass()}.
+     * @pre: e != null
+     * @post: getMicroServiceSubscribedToEvent : queues.get(m).contains(e))
      */
     <T> Future<T> sendEvent(Event<T> e);
 
@@ -64,6 +77,8 @@ public interface MessageBus {
      * Allocates a message-queue for the {@link MicroService} {@code m}.
      * <p>
      * @param m the micro-service to create a queue for.
+     * @pre: !queues.contains(m)
+     * @post: queues.contains(m)
      */
     void register(MicroService m);
 
@@ -90,12 +105,28 @@ public interface MessageBus {
     boolean isEventSubscribedBy(Class<? extends Event> type, MicroService m);
 
     /**
+     * return the MicroService subscribed to event.
+     * <p>
+     * @param e the event we want to get the microService who assigned to
+     */
+    <T> MicroService getMicroServiceSubscribedToEvent(Event<T> e);
+
+    /**
+     * return the MicroServices subscribed to broadcast.
+     * <p>
+     * @param b the broadcast we want to get all the microService who assigned to
+     */
+    List<MicroService> getMicroServiceSubscribedToEvent(Broadcast b);
+
+    /**
      * Removes the message queue allocated to {@code m} via the call to
      * {@link #register(bgu.spl.mics.MicroService)} and cleans all references
      * related to {@code m} in this message-bus. If {@code m} was not
      * registered, nothing should happen.
      * <p>
      * @param m the micro-service to unregister.
+     * @pre: queues.contains(m)
+     * @post: !queues.contains(m)
      */
     void unregister(MicroService m);
 

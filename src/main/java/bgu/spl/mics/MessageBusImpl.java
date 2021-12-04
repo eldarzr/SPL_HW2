@@ -3,6 +3,7 @@ package bgu.spl.mics;
 import bgu.spl.mics.example.ServiceCreator;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
@@ -89,6 +90,15 @@ public class MessageBusImpl implements MessageBus {
 		return null;
 	}
 
-	
+	@Override
+	public List<MicroService> getMicroServiceSubscribedToEvent(Broadcast b) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public <T> MicroService getMicroServiceSubscribedToEvent(Event<T> e) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
