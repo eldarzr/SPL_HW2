@@ -1,11 +1,20 @@
 package bgu.spl.mics;
 
+import bgu.spl.mics.example.ServiceCreator;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
+
 /**
  * The {@link MessageBusImpl class is the implementation of the MessageBus interface.
  * Write your implementation here!
  * Only private fields and methods can be added to this class.
  */
 public class MessageBusImpl implements MessageBus {
+
+	public Map<MicroService , Queue<Message>> queues = new HashMap<>();
+
 
 	@Override
 	public <T> void subscribeEvent(Class<? extends Event<T>> type, MicroService m) {
@@ -39,12 +48,15 @@ public class MessageBusImpl implements MessageBus {
 	}
 
 	@Override
+	//@PRE: queues.containsKey(m)==false
+	//@POST: queues.containsKey(m)==true
 	public void register(MicroService m) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
+	//@PRE: queues.containsKey(m)==true
+	//@POST: queues.containsKey(m)==false
 	public void unregister(MicroService m) {
 		// TODO Auto-generated method stub
 
