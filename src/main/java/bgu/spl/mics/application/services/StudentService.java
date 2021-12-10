@@ -1,6 +1,11 @@
 package bgu.spl.mics.application.services;
 
+import bgu.spl.mics.Future;
 import bgu.spl.mics.MicroService;
+import bgu.spl.mics.application.messages.TrainModelEvent;
+import bgu.spl.mics.application.objects.Model;
+import bgu.spl.mics.application.objects.Student;
+import jdk.net.SocketFlow;
 
 /**
  * Student is responsible for sending the {@link TrainModelEvent},
@@ -12,14 +17,30 @@ import bgu.spl.mics.MicroService;
  * You MAY change constructor signatures and even add new public constructors.
  */
 public class StudentService extends MicroService {
+   private Student student;
+
     public StudentService(String name) {
-        super("Change_This_Name");
+        super("Student Service");
         // TODO Implement this
+        this.student = student;
+
+    }
+    public StudentService(String name, Student student) {
+        super("Student Service");
+        // TODO Implement this
+        this.student = student;
+
     }
 
     @Override
     protected void initialize() {
         // TODO Implement this
+    }
 
+    public void startProcess(){
+
+        Model model = student.getCurrentModel();
+
+        Future<String> future = sendEvent(new TrainModelEvent());
     }
 }

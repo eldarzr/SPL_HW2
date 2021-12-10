@@ -1,6 +1,8 @@
 package bgu.spl.mics.application.services;
 
+import bgu.spl.mics.Callback;
 import bgu.spl.mics.MicroService;
+import bgu.spl.mics.application.messages.TrainModelEvent;
 
 /**
  * GPU service is responsible for handling the
@@ -21,6 +23,21 @@ public class GPUService extends MicroService {
     @Override
     protected void initialize() {
         // TODO Implement this
+        subscribe();
+
+    }
+
+    private void onTrain(){
+
+    }
+
+    private void subscribe() {
+        subscribeEvent(TrainModelEvent.class, new Callback<TrainModelEvent>() {
+            @Override
+            public void call(TrainModelEvent c) {
+                onTrain();
+            }
+        });
 
     }
 }

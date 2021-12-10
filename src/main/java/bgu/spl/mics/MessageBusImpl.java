@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * The {@link MessageBusImpl class is the implementation of the MessageBus interface.
@@ -14,13 +16,17 @@ import java.util.Queue;
  */
 public class MessageBusImpl implements MessageBus {
 
-	private Map<MicroService , Queue<Message>> queues = new HashMap<>();
+	private ConcurrentHashMap<MicroService , ConcurrentLinkedQueue<Message>> queues = new ConcurrentHashMap<>();
+	private Map<Class<? extends Event>,Queue<MicroService>> eventServices;
+	int nextRobinGpu;
 
 
 	@Override
 	public <T> void subscribeEvent(Class<? extends Event<T>> type, MicroService m) {
 		// TODO Auto-generated method stub
-
+		if(eventServices.containsKey(type))
+			eventServices.put(type, new ConcurrentLinkedQueue<>());
+		eventServices.get(type).add(m);
 	}
 
 	@Override
@@ -45,7 +51,12 @@ public class MessageBusImpl implements MessageBus {
 	@Override
 	public <T> Future<T> sendEvent(Event<T> e) {
 		// TODO Auto-generated method stub
-		return null;
+		//// *** CHECK IF Q EXISTS ****
+		Queue<MicroService> ms = eventServices.get(e.getClass());
+		MicroService m = ms.remove();
+		queues.get(m).add(e);
+		ms.add(m);
+		return e.getFuture();
 	}
 
 	@Override

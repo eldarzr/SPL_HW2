@@ -17,6 +17,7 @@ public class Model {
     private String name;
     private Data data;
     private Student student;
+Model m = new Model();
 
     public Status getStatus() {
         return status;
