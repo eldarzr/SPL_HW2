@@ -16,15 +16,15 @@ public class GPUTest extends TestCase {
     }
 
     public void testSendUnprocessedData() {
-       Data data = new Data();
-       DataBatch dataBatch = new DataBatch(0,data);
+        Data data = new Data(Data.Type.Text, 0, 10000);
+        DataBatch dataBatch = new DataBatch(0,data);
        int ds = gpu.getDataSent();
        gpu.sendUnprocessedData();
        assertTrue(ds == gpu.getDataSent() - 1000);
     }
 
     public void testReceivedProcessedData() {
-       Data data = new Data();
+        Data data = new Data(Data.Type.Text, 0, 10000);
        DataBatch dataBatch = new DataBatch(0,data);
        assertFalse(gpu.getProcessedData().contains(dataBatch));
        gpu.receivedProcessedData(dataBatch);
@@ -33,7 +33,7 @@ public class GPUTest extends TestCase {
     }
 
     public void testTrainData() {
-       Data data = new Data();
+        Data data = new Data(Data.Type.Text, 0, 10000);
        DataBatch dataBatch = new DataBatch(0,data);
        gpu.receivedProcessedData(dataBatch);
        //dataBatch=gpu.getProcessedData();

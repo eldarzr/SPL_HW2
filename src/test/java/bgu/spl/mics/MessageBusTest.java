@@ -101,9 +101,20 @@ public class MessageBusTest extends TestCase {
     public void testAwaitMessage() {
         MicroService microService = new StudentService("stu");
         messageBus.register(microService);
-        messageBus.subscribeEvent(ExampleEvent.class,microService);
         try {
-            messageBus.awaitMessage(microService);
-        } catch (InterruptedException e) {}
+            Message msg= messageBus.awaitMessage(microService);
+            assertTrue(msg!=null);
+        } catch (InterruptedException e) {
+            assertTrue(false);
+        }
+
+        messageBus.subscribeEvent(ExampleEvent.class,microService);
+        messageBus.sendEvent(new ExampleEvent("event"));
+        try {
+           Message msg= messageBus.awaitMessage(microService);
+           assertTrue(msg!=null);
+        } catch (InterruptedException e) {
+            assertTrue(false);
+        }
     }
 }
