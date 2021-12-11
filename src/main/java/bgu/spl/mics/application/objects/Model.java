@@ -17,7 +17,14 @@ public class Model {
     private String name;
     private Data data;
     private Student student;
-Model m = new Model();
+
+    public Model(String name, Data data, Student student) {
+        this.status=Status.PreTrained;
+        this.results = Results.None;
+        this.name = name;
+        this.data = data;
+        this.student = student;
+    }
 
     public Status getStatus() {
         return status;

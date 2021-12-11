@@ -1,5 +1,6 @@
 package bgu.spl.mics.application.objects;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -19,6 +20,12 @@ public class CPU {
     private Cluster cluster;
     private long ticks;
 
+    public CPU(int cores,long ticks) {
+        this.cores = cores;
+        this.data = new ArrayList<>();
+        this.cluster = Cluster.getInstance();
+        this.ticks = ticks;
+    }
 
     /**
      * add the new {@code dataBatch} to the data collection.
@@ -28,7 +35,7 @@ public class CPU {
      */
     public void addUnprocessedData(DataBatch dataBatch){
         // TODO Auto-generated method stub
-
+        data.add(dataBatch);
     }
 
     /**
@@ -49,6 +56,7 @@ public class CPU {
      */
     public void sendProcessedData(DataBatch dataBatch){
         // TODO Auto-generated method stub
+        cluster.sendProcessedData(dataBatch);
     }
     /**
      *

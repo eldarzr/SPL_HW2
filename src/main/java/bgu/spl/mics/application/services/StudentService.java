@@ -35,12 +35,12 @@ public class StudentService extends MicroService {
     @Override
     protected void initialize() {
         // TODO Implement this
+        startProcess();
     }
 
     public void startProcess(){
 
         Model model = student.getCurrentModel();
-
-        Future<String> future = sendEvent(new TrainModelEvent());
+        Future<String> future = sendEvent(new TrainModelEvent(model));
     }
 }

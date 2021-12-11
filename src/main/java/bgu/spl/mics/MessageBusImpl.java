@@ -2,10 +2,7 @@ package bgu.spl.mics;
 
 import bgu.spl.mics.example.ServiceCreator;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -17,14 +14,15 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class MessageBusImpl implements MessageBus {
 
 	private ConcurrentHashMap<MicroService , ConcurrentLinkedQueue<Message>> queues = new ConcurrentHashMap<>();
-	private Map<Class<? extends Event>,Queue<MicroService>> eventServices;
+	private ConcurrentHashMap<Class<? extends Event>,ConcurrentLinkedQueue<MicroService>> eventServices;
+	private ConcurrentHashMap<Class<? extends Broadcast>,List<MicroService>> broadcastServices;
 	int nextRobinGpu;
 
 
 	@Override
 	public <T> void subscribeEvent(Class<? extends Event<T>> type, MicroService m) {
 		// TODO Auto-generated method stub
-		if(eventServices.containsKey(type))
+		if(!eventServices.containsKey(type))
 			eventServices.put(type, new ConcurrentLinkedQueue<>());
 		eventServices.get(type).add(m);
 	}
@@ -32,6 +30,9 @@ public class MessageBusImpl implements MessageBus {
 	@Override
 	public void subscribeBroadcast(Class<? extends Broadcast> type, MicroService m) {
 		// TODO Auto-generated method stub
+		if(!broadcastServices.containsKey(type))
+			broadcastServices.put(type, new ArrayList<>());
+		broadcastServices.get(type).add(m);
 
 	}
 
@@ -44,7 +45,10 @@ public class MessageBusImpl implements MessageBus {
 	@Override
 	public void sendBroadcast(Broadcast b) {
 		// TODO Auto-generated method stub
-
+		List<MicroService> _allb = broadcastServices.get(b.getClass());
+		for (MicroService microService : _allb) {
+			queues.get(microService).add(b);
+		}
 	}
 
 	

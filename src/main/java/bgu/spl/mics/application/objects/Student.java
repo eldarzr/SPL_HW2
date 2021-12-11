@@ -1,5 +1,6 @@
 package bgu.spl.mics.application.objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,11 +11,11 @@ public class Student {
     /**
      * Enum representing the Degree the student is studying for.
      */
-    enum Degree {
+    public enum Degree {
         MSc, PhD
     }
 
-    private int name;
+    private String name;
     private String department;
     private Degree status;
     private int publications;
@@ -22,13 +23,13 @@ public class Student {
     private List<Model> modelLists;
     private int currModel;
 
-    public Student(int name, String department, Degree status, int publications, int papersRead, List<Model> modelLists) {
+    public Student(String name, String department, Degree status, int publications, int papersRead) {
         this.name = name;
         this.department = department;
         this.status = status;
         this.publications = publications;
         this.papersRead = papersRead;
-        this.modelLists = modelLists;
+        this.modelLists = new ArrayList<>();
         this.currModel = 0;
     }
 
@@ -36,5 +37,9 @@ public class Student {
         if (currModel >= modelLists.size() || modelLists.isEmpty())
             return null; //  **** EXCEPTION >???? ***
         return modelLists.get(currModel);
+    }
+    public void addModel (Model m){
+        this.modelLists.add(m);
+
     }
 }

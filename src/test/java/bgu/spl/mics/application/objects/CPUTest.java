@@ -11,7 +11,7 @@ public class CPUTest extends TestCase {
     @BeforeEach
     public void setUp() throws Exception {
         super.setUp();
-        cpu = new CPU();
+        //cpu = new CPU();
     }
 
 

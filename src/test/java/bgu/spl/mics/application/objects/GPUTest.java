@@ -9,7 +9,7 @@ public class GPUTest extends TestCase {
    @BeforeEach
     public void setUp() throws Exception {
         super.setUp();
-        gpu = new GPU();
+        //gpu = new GPU();
     }
 
     public void tearDown() throws Exception {

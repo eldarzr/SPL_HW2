@@ -1,6 +1,11 @@
 package bgu.spl.mics.application.services;
 
+import bgu.spl.mics.Callback;
 import bgu.spl.mics.MicroService;
+import bgu.spl.mics.application.messages.TickBroadcast;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * TimeService is the global system timer There is only one instance of this micro-service.
@@ -11,17 +16,55 @@ import bgu.spl.mics.MicroService;
  * You can add private fields and public methods to this class.
  * You MAY change constructor signatures and even add new public constructors.
  */
-public class TimeService extends MicroService{
+public class TimeService extends MicroService {
 
-	public TimeService() {
-		super("Change_This_Name");
+	private int speed;
+	private int duration;
+	private int counter;
+	private Timer timer;
+
+	public TimeService(int speed, int duration, String name) {
+		super(name);
 		// TODO Implement this
+		this.duration = duration;
+		this.speed = speed;
+		counter = 0;
+		timer = new Timer();
 	}
 
 	@Override
 	protected void initialize() {
 		// TODO Implement this
-		
+		subscribeBroadcast(TickBroadcast.class, new Callback<TickBroadcast>() {
+			@Override
+			public void call(TickBroadcast c) {
+				if (counter < duration) {
+					timer.schedule(new TimerTask() {
+						@Override
+						public void run() {
+							sendBroadcast(new TickBroadcast());
+						}
+					}, speed);
+					counter++;
+				}
+			}
+		});
+		sendBroadcast(new TickBroadcast());
+	}
+
+
+
+
+
+	private void run2(){
+		while (counter<=duration) {
+			try {
+				Thread.sleep(speed);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			counter++;
+		}
 	}
 
 }

@@ -1,8 +1,7 @@
 package bgu.spl.mics.application.objects;
 
-import bgu.spl.mics.Broadcast;
-
 import java.util.Collection;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Passive object representing a single GPU.
@@ -11,21 +10,68 @@ import java.util.Collection;
  * @INV: trainedData.Size()<=Model.getData().getSize() && dataSent<=Model.getData().getSize()
  */
 public class GPU {
+
     /**
      * Enum representing the type of the GPU.
      */
-    enum Type {RTX3090, RTX2080, GTX1080}
+    public enum Type {RTX3090, RTX2080, GTX1080}
 
     private Type type;
     private Model model;
     private Cluster cluster;
+    private ConcurrentLinkedQueue<DataBatch> unProcessedData;
     private Collection<DataBatch> processedData;
     private Collection<DataBatch> trainedData;
     private boolean isCompleted;
     private long ticks;
     private int dataSent;
+    private final int NUM_OF_BATCHES;
+    private int numOfDataInProcess;
+
+    public GPU(Type type) {
+        this.type = type;
+        this.model = null;
+        cluster = Cluster.getInstance();
+        isCompleted = false;
+        ticks = 0;
+        dataSent = 0;
+        NUM_OF_BATCHES = initNumOfBatches(type);
+        unProcessedData = new ConcurrentLinkedQueue<>();
+        processedData = new ConcurrentLinkedQueue<>();
+        trainedData = new ConcurrentLinkedQueue<>();
+        numOfDataInProcess=0;
+    }
+
+    private int initNumOfBatches(Type type){
+        if(type == Type.GTX1080)
+            return 8;
+        else if(type == Type.RTX2080)
+            return 16;
+        else return 32;
+    }
+
+    public void setTrainModel(Model model){
+        this.model=model;
+        //processedData;
+        //trainedData;
+        isCompleted = false;
+        dataSent=0;
+
+        unProcessedData = new ConcurrentLinkedQueue<>();
+        processedData = new ConcurrentLinkedQueue<>();
+        trainedData = new ConcurrentLinkedQueue<>();
+        for (int i=0; i<model.getData().getSize(); i=i+1000){
+            unProcessedData.add(new DataBatch(i,model.getData()));
+        }
+
+    }
 
 
+    public void onTick() {
+        if(type == Type.RTX3090 && ticks>=4){
+            trainData();
+        }
+    }
 
     /**
      * Sends {@link DataBatch} unprocessed data using the cluster.
@@ -36,6 +82,9 @@ public class GPU {
 
     public void sendUnprocessedData(){
         // TODO Auto-generated method stub
+        while (!unProcessedData.isEmpty() && numOfDataInProcess<NUM_OF_BATCHES){
+            cluster.sendData(unProcessedData.remove(), db -> processedData.add(db));
+        }
     }
     /**
      * Adds the {@link DataBatch} {@code b} to the proccesedData
@@ -81,7 +130,7 @@ public class GPU {
      **/
     public void updateTicks(){
         // TODO Auto-generated method stub
-
+        ticks++;
     }
 
     public Type getType() {
@@ -102,6 +151,10 @@ public class GPU {
 
     public boolean isCompleted() {
         return isCompleted;
+    }
+
+    public void incTicks() {
+        ticks++;
     }
 
     public long getTicks() {
