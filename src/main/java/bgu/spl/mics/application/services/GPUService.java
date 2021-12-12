@@ -22,6 +22,7 @@ public class GPUService extends MicroService {
     public GPUService(String name , GPU gpu) {
         super("Change_This_Name");
         this.gpu=gpu;
+        gpu.registerCluster();
         // TODO Implement this
         subscribe();
     }

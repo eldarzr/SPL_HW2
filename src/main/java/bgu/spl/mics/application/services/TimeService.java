@@ -30,11 +30,8 @@ public class TimeService extends MicroService {
 		this.speed = speed;
 		counter = 0;
 		timer = new Timer();
-	}
 
-	@Override
-	protected void initialize() {
-		// TODO Implement this
+
 		subscribeBroadcast(TickBroadcast.class, new Callback<TickBroadcast>() {
 			@Override
 			public void call(TickBroadcast c) {
@@ -47,8 +44,14 @@ public class TimeService extends MicroService {
 					}, speed);
 					counter++;
 				}
+				System.out.println(counter);
 			}
 		});
+	}
+
+	@Override
+	protected void initialize() {
+		// TODO Implement this
 		sendBroadcast(new TickBroadcast());
 	}
 
