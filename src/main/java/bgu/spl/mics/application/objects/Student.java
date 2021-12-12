@@ -8,6 +8,8 @@ import java.util.List;
  * Add fields and methods to this class as you see fit (including public methods and constructors).
  */
 public class Student {
+
+
     /**
      * Enum representing the Degree the student is studying for.
      */
@@ -34,10 +36,16 @@ public class Student {
     }
 
     public Model getCurrentModel(){
-        if (currModel >= modelLists.size() || modelLists.isEmpty())
+    if(!hasNext())
             return null; //  **** EXCEPTION >???? ***
+        currModel++;
         return modelLists.get(currModel);
     }
+
+    public boolean hasNext() {
+        return (currModel >= modelLists.size() || modelLists.isEmpty());
+    }
+
     public void addModel (Model m){
         this.modelLists.add(m);
 
