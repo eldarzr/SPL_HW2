@@ -1,10 +1,10 @@
 -------------------------------------------------------------------------------
 Test set: bgu.spl.mics.application.objects.CPUTest
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.131 sec <<< FAILURE!
-testProcessData(bgu.spl.mics.application.objects.CPUTest)  Time elapsed: 0.041 sec  <<< ERROR!
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 0.06 sec <<< FAILURE!
+testProcessData(bgu.spl.mics.application.objects.CPUTest)  Time elapsed: 0.009 sec  <<< ERROR!
 java.lang.NullPointerException
-	at bgu.spl.mics.application.objects.CPUTest.testProcessData(CPUTest.java:34)
+	at bgu.spl.mics.application.objects.CPUTest.testProcessData(CPUTest.java:32)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -31,7 +31,7 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testAddUnprocessedData(bgu.spl.mics.application.objects.CPUTest)  Time elapsed: 0 sec  <<< ERROR!
+testAddUnprocessedData(bgu.spl.mics.application.objects.CPUTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.NullPointerException
 	at bgu.spl.mics.application.objects.CPUTest.testAddUnprocessedData(CPUTest.java:24)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -60,9 +60,9 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testSendProcessedData(bgu.spl.mics.application.objects.CPUTest)  Time elapsed: 0.001 sec  <<< ERROR!
+testSendProcessedData(bgu.spl.mics.application.objects.CPUTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.NullPointerException
-	at bgu.spl.mics.application.objects.CPUTest.testSendProcessedData(CPUTest.java:43)
+	at bgu.spl.mics.application.objects.CPUTest.testSendProcessedData(CPUTest.java:42)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

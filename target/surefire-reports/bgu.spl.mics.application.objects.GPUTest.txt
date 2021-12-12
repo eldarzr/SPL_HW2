@@ -1,14 +1,10 @@
 -------------------------------------------------------------------------------
 Test set: bgu.spl.mics.application.objects.GPUTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 2, Errors: 4, Skipped: 0, Time elapsed: 0.004 sec <<< FAILURE!
-testSendUnprocessedData(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0 sec  <<< FAILURE!
-junit.framework.AssertionFailedError
-	at junit.framework.Assert.fail(Assert.java:55)
-	at junit.framework.Assert.assertTrue(Assert.java:22)
-	at junit.framework.Assert.assertTrue(Assert.java:31)
-	at junit.framework.TestCase.assertTrue(TestCase.java:200)
-	at bgu.spl.mics.application.objects.GPUTest.testSendUnprocessedData(GPUTest.java:23)
+Tests run: 6, Failures: 0, Errors: 6, Skipped: 0, Time elapsed: 0.007 sec <<< FAILURE!
+testSendUnprocessedData(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.NullPointerException
+	at bgu.spl.mics.application.objects.GPUTest.testSendUnprocessedData(GPUTest.java:21)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -35,13 +31,9 @@ junit.framework.AssertionFailedError
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testUpdateTick(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0 sec  <<< FAILURE!
-junit.framework.AssertionFailedError
-	at junit.framework.Assert.fail(Assert.java:55)
-	at junit.framework.Assert.assertTrue(Assert.java:22)
-	at junit.framework.Assert.assertTrue(Assert.java:31)
-	at junit.framework.TestCase.assertTrue(TestCase.java:200)
-	at bgu.spl.mics.application.objects.GPUTest.testUpdateTick(GPUTest.java:66)
+testUpdateTick(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0 sec  <<< ERROR!
+java.lang.NullPointerException
+	at bgu.spl.mics.application.objects.GPUTest.testUpdateTick(GPUTest.java:63)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -68,7 +60,7 @@ junit.framework.AssertionFailedError
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testTestModel(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0 sec  <<< ERROR!
+testTestModel(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.NullPointerException
 	at bgu.spl.mics.application.objects.GPUTest.testTestModel(GPUTest.java:55)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -97,7 +89,7 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testComplete(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0.001 sec  <<< ERROR!
+testComplete(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.NullPointerException
 	at bgu.spl.mics.application.objects.GPUTest.testComplete(GPUTest.java:46)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -128,7 +120,7 @@ java.lang.NullPointerException
 
 testTrainData(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.NullPointerException
-	at bgu.spl.mics.application.objects.GPUTest.testTrainData(GPUTest.java:40)
+	at bgu.spl.mics.application.objects.GPUTest.testTrainData(GPUTest.java:38)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -155,7 +147,7 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testReceivedProcessedData(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0 sec  <<< ERROR!
+testReceivedProcessedData(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.NullPointerException
 	at bgu.spl.mics.application.objects.GPUTest.testReceivedProcessedData(GPUTest.java:29)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)

@@ -20,12 +20,13 @@ public class GPU {
     private Model model;
     private Cluster cluster;
     private ConcurrentLinkedQueue<DataBatch> unProcessedData;
-    private Collection<DataBatch> processedData;
-    private Collection<DataBatch> trainedData;
+    private ConcurrentLinkedQueue<DataBatch> processedData;
+    private ConcurrentLinkedQueue<DataBatch> trainedData;
     private boolean isCompleted;
     private long ticks;
     private int dataSent;
     private final int NUM_OF_BATCHES;
+    private final int NUM_OF_TICKS;
     private int numOfDataInProcess;
 
     public GPU(Type type) {
@@ -36,6 +37,7 @@ public class GPU {
         ticks = 0;
         dataSent = 0;
         NUM_OF_BATCHES = initNumOfBatches(type);
+        NUM_OF_TICKS = initNumOfTicks(type);
         unProcessedData = new ConcurrentLinkedQueue<>();
         processedData = new ConcurrentLinkedQueue<>();
         trainedData = new ConcurrentLinkedQueue<>();
@@ -48,6 +50,14 @@ public class GPU {
         else if(type == Type.RTX2080)
             return 16;
         else return 32;
+    }
+
+    private int initNumOfTicks(Type type){
+        if(type == Type.GTX1080)
+            return 4;
+        else if(type == Type.RTX2080)
+            return 2;
+        else return 1;
     }
 
     public void setTrainModel(Model model){
@@ -69,9 +79,11 @@ public class GPU {
 
 
     public void onTick() {
-        if(type == Type.RTX3090 && ticks>=4){
+        if(trainedData.size() < model.getData().getSize()/1000){
             trainData();
+            sendUnprocessedData();
         }
+        else complete();
     }
 
     /**
@@ -84,7 +96,10 @@ public class GPU {
     public void sendUnprocessedData(){
         // TODO Auto-generated method stub
         while (!unProcessedData.isEmpty() && numOfDataInProcess<NUM_OF_BATCHES){
-            cluster.sendData(unProcessedData.remove(), db -> processedData.add(db));
+            cluster.sendData(unProcessedData.remove(), db -> {
+                processedData.add(db);
+                numOfDataInProcess++;
+            });
         }
     }
     /**
@@ -106,6 +121,12 @@ public class GPU {
      */
     public void trainData(){
         // TODO Auto-generated method stub
+        if(ticks>= NUM_OF_TICKS && !processedData.isEmpty()){
+            DataBatch db = processedData.remove();
+            trainedData.add(db);
+            ticks = 0;
+            numOfDataInProcess--;
+        }
     }
     /**
      * complete the GPU actions on the TrainModelEvent
@@ -114,6 +135,7 @@ public class GPU {
      */
     public void complete(){
         // TODO Auto-generated method stub
+
     }
 
     /**
@@ -132,6 +154,10 @@ public class GPU {
     public void updateTicks(){
         // TODO Auto-generated method stub
         ticks++;
+    }
+
+    public void registerCluster() {
+        cluster.registerGPU(this);
     }
 
     public Type getType() {
