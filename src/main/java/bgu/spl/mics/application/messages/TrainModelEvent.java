@@ -7,17 +7,21 @@ import bgu.spl.mics.application.objects.Model;
 public class TrainModelEvent implements Event<String> {
 
     Model model;
+    Future future;
 
     public TrainModelEvent(Model model) {
         this.model = model;
-    }
-
-    @Override
-    public <T> Future<T> getFuture() {
-        return null;
+        future = null;
     }
 
     public Model getModel() {
         return model;
+    }
+
+    @Override
+    public <T> Future<T> getFuture() {
+        if(future == null)
+            future = new Future<T>();
+        return future;
     }
 }

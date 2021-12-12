@@ -18,6 +18,7 @@ public class Future<T> {
 	 */
 	public Future() {
 		//TODO: implement this
+		result = null;
 	}
 	
 	/**
@@ -30,6 +31,16 @@ public class Future<T> {
      */
 	public T get() {
 		//TODO: implement this.
+
+		try {
+			synchronized (this){
+				while (!isDone()){
+					this.wait();
+				}
+				return result;
+			}
+		}
+		catch (InterruptedException e) {}
 		return null;
 	}
 	
@@ -38,8 +49,10 @@ public class Future<T> {
 	 * //@PRE: resolved=null
      * //@POST: resolved=result
 	 */
-	public void resolve (T result) {
+	public synchronized void resolve (T result) {
 		//TODO: implement this.
+		this.result = result;
+		this.notifyAll();
 	}
 	
 	/**
@@ -47,7 +60,7 @@ public class Future<T> {
      */
 	public boolean isDone() {
 		//TODO: implement this.
-		return false;
+		return result != null;
 	}
 	
 	/**
@@ -55,7 +68,7 @@ public class Future<T> {
      * This method is non-blocking, it has a limited amount of time determined
      * by {@code timeout}
      * <p>
-     * @param timout 	the maximal amount of time units to wait for the result.
+     * @param timeout 	the maximal amount of time units to wait for the result.
      * @param unit		the {@link TimeUnit} time units to wait.
      * @return return the result of type T if it is available, if not, 
      * 	       wait for {@code timeout} TimeUnits {@code unit}. If time has
@@ -64,6 +77,16 @@ public class Future<T> {
      */
 	public T get(long timeout, TimeUnit unit) {
 		//TODO: implement this.
+
+		try {
+			synchronized (this){
+				while (!isDone()){
+					this.wait(unit.convert(timeout,TimeUnit.MILLISECONDS));
+				}
+				return result;
+			}
+		}
+		catch (InterruptedException e) {}
 		return null;
 	}
 

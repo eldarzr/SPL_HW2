@@ -39,8 +39,8 @@ public class StudentService extends MicroService {
     }
 
     public void startProcess(){
-
         Model model = student.getCurrentModel();
         Future<String> future = sendEvent(new TrainModelEvent(model));
+        String result = future.get();
     }
 }

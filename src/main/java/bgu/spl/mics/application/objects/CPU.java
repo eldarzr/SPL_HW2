@@ -1,7 +1,11 @@
 package bgu.spl.mics.application.objects;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Vector;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * Passive object representing a single CPU.
@@ -19,12 +23,15 @@ public class CPU {
     private Collection<DataBatch> data;
     private Cluster cluster;
     private long ticks;
+    private DataBatch currentDB;
 
     public CPU(int cores,long ticks) {
         this.cores = cores;
         this.data = new ArrayList<>();
         this.cluster = Cluster.getInstance();
-        this.ticks = ticks;
+        data= new ConcurrentLinkedQueue<>();
+       // this.ticks = ticks;
+        this.ticks = 0;
     }
 
     /**
@@ -43,9 +50,33 @@ public class CPU {
      * @PRE: !data.isEmpty()
      * @POST: (@return == @pre: data.get(0)) & (data.size() == @pre: data.size()) & (@return: data.processed == @pre: data.get(0).processed+1000)
      */
-    public DataBatch ProcessData(){
+    public void ProcessData(){
         // TODO Auto-generated method stub
-        return null;
+        ConcurrentLinkedQueue<DataBatch> queue = (ConcurrentLinkedQueue<DataBatch>) data;
+        if(!queue.isEmpty()) {
+            DataBatch dataBatch = queue.peek();
+            Data.Type type = dataBatch.getData().getType();
+            int requiredTick = getRequiredTicks(type);
+            if (ticks >= requiredTick) {
+                dataBatch = queue.remove();
+                queue.remove(dataBatch);
+                ticks = 0;
+                sendProcessedData(dataBatch);
+            }
+        }
+    }
+
+    private int getRequiredTicks(Data.Type type) {
+        int req = 32/cores;
+        if(type ==  Data.Type.Images){
+            req*=4;
+        }
+        if(type ==  Data.Type.Text){
+            req*=2;
+        }
+
+        return req;
+
     }
 
 
@@ -65,6 +96,7 @@ public class CPU {
      */
     public void updateTicks(){
         // TODO Auto-generated method stub
+        ticks++;
     }
 
     public int getCores() {
