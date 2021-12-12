@@ -1,5 +1,7 @@
 package bgu.spl.mics.application.objects;
 
+import bgu.spl.mics.Future;
+
 import java.util.Collection;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -28,6 +30,7 @@ public class GPU {
     private final int NUM_OF_BATCHES;
     private final int NUM_OF_TICKS;
     private int numOfDataInProcess;
+    private Future future;
 
     public GPU(Type type) {
         this.type = type;
@@ -60,9 +63,10 @@ public class GPU {
         else return 1;
     }
 
-    public void setTrainModel(Model model){
+    public void setTrainModel(Model model, Future future){
         System.out.println("gpu got new model");
         this.model=model;
+        this.future = future;
         //processedData;
         //trainedData;
         isCompleted = false;
@@ -135,7 +139,7 @@ public class GPU {
      */
     public void complete(){
         // TODO Auto-generated method stub
-
+        future.resolve(Model.Status.Trained);
     }
 
     /**

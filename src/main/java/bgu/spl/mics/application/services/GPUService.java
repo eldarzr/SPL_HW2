@@ -42,7 +42,7 @@ public class GPUService extends MicroService {
         subscribeEvent(TrainModelEvent.class, new Callback<TrainModelEvent>() {
             @Override
             public void call(TrainModelEvent c) {
-                gpu.setTrainModel(c.getModel());
+                gpu.setTrainModel(c.getModel(),c.getFuture());
                 onTrain();
             }
         });
