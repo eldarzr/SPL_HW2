@@ -23,12 +23,13 @@ public class GPUService extends MicroService {
         super("Change_This_Name");
         this.gpu=gpu;
         // TODO Implement this
+        subscribe();
     }
 
     @Override
     protected void initialize() {
         // TODO Implement this
-        subscribe();
+        //subscribe();
 
     }
 

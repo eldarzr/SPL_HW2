@@ -34,9 +34,9 @@ public class CRMSRunner {
         GPU gpu = new GPU(RTX3090);
         GPUService gpuService = new GPUService("",gpu);
         TimeService timeService = new TimeService(2,9999,"");
-        Thread t1 = new Thread(studentService);
-        Thread t2 = new Thread(gpuService);
-        Thread t3 = new Thread(timeService);
+        Thread t3 = new Thread(studentService);
+        Thread t1 = new Thread(gpuService);
+        Thread t2 = new Thread(timeService);
         t1.start();
         t2.start();
         t3.start();

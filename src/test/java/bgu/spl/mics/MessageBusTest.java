@@ -14,7 +14,7 @@ public class MessageBusTest extends TestCase {
 
     public void setUp() throws Exception {
         super.setUp();
-        messageBus = new MessageBusImpl();
+        messageBus = MessageBusImpl.getInstance();
     }
 
     public void tearDown() throws Exception {

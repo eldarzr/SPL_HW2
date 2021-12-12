@@ -1,5 +1,6 @@
 package bgu.spl.mics;
 
+import bgu.spl.mics.application.objects.Cluster;
 import bgu.spl.mics.example.ServiceCreator;
 
 import java.util.*;
@@ -18,6 +19,23 @@ public class MessageBusImpl implements MessageBus {
 	private ConcurrentHashMap<Class<? extends Broadcast>,List<MicroService>> broadcastServices;
 	int nextRobinGpu;
 
+	private static class MessageBusImplHolder{
+		private static MessageBusImpl instance = new MessageBusImpl();
+	}
+
+	/**
+	 * Retrieves the single instance of this class.
+	 */
+	public static MessageBusImpl getInstance() {
+		//TODO: Implement this
+		return MessageBusImpl.MessageBusImplHolder.instance;
+	}
+
+	private MessageBusImpl(){
+		queues = new ConcurrentHashMap<>();
+		eventServices = new ConcurrentHashMap<>();
+		broadcastServices = new ConcurrentHashMap<>();
+	}
 
 	@Override
 	public <T> void subscribeEvent(Class<? extends Event<T>> type, MicroService m) {
@@ -47,7 +65,12 @@ public class MessageBusImpl implements MessageBus {
 		// TODO Auto-generated method stub
 		List<MicroService> _allb = broadcastServices.get(b.getClass());
 		for (MicroService microService : _allb) {
-			queues.get(microService).add(b);
+			//queues.get(microService).add(b);
+			ConcurrentLinkedQueue<Message> queue = queues.get(microService);
+			synchronized (queue){
+				queue.add(b);
+				queue.notifyAll();
+			}
 		}
 	}
 
@@ -58,7 +81,12 @@ public class MessageBusImpl implements MessageBus {
 		//// *** CHECK IF Q EXISTS ****
 		Queue<MicroService> ms = eventServices.get(e.getClass());
 		MicroService m = ms.remove();
-		queues.get(m).add(e);
+		ConcurrentLinkedQueue<Message> queue = queues.get(m);
+		synchronized (queue){
+			queue.add(e);
+			queue.notifyAll();
+		}
+		//queues.get(m).add(e);
 		ms.add(m);
 		return e.getFuture();
 	}
@@ -70,6 +98,7 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	public void register(MicroService m) {
 		// TODO Auto-generated method stub
+		queues.put(m,new ConcurrentLinkedQueue<>());
 	}
 
 	@Override
@@ -78,31 +107,41 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	public void unregister(MicroService m) {
 		// TODO Auto-generated method stub
-
+		queues.remove(m);
 	}
 
 	@Override
 	public boolean isRegistered(MicroService m) {
 		// TODO Auto-generated method stub
-		return false;
+		return queues.containsKey(m);
 	}
 
 	@Override
 	public boolean isEventSubscribedBy(Class<? extends Event> type, MicroService m) {
 		// TODO Auto-generated method stub
-		return false;
+		if(eventServices.containsKey(type))
+			return false;
+		return eventServices.get(type).contains(m);
 	}
 
 	@Override
 	public boolean isBroadcastSubscribedBy(Class<? extends Broadcast> type, MicroService m) {
 		// TODO Auto-generated method stub
-		return false;
+		if(broadcastServices.containsKey(type))
+			return false;
+		return broadcastServices.get(type).contains(m);
 	}
 
 	@Override
 	public Message awaitMessage(MicroService m) throws InterruptedException {
 		// TODO Auto-generated method stub
-		return null;
+		ConcurrentLinkedQueue<Message> queue = queues.get(m);
+		synchronized (queue){
+			while (queue.isEmpty())
+				queue.wait();
+			return queue.remove();
+		}
+		//return null;
 	}
 
 	@Override

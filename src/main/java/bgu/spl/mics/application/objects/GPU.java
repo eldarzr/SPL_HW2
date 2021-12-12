@@ -51,6 +51,7 @@ public class GPU {
     }
 
     public void setTrainModel(Model model){
+        System.out.println("gpu got new model");
         this.model=model;
         //processedData;
         //trainedData;
