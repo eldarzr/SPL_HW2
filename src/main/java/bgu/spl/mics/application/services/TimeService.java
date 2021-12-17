@@ -33,7 +33,10 @@ public class TimeService extends MicroService {
 		timer = new Timer();
 
 
-		subscribeBroadcast(CancelBroadcast.class, c -> terminate());
+		subscribeBroadcast(CancelBroadcast.class, c -> {
+			timer.cancel();
+			terminate();
+		});
 		subscribeBroadcast(TickBroadcast.class, c ->{
 			if (counter < duration) {
 				timer.schedule(new TimerTask() {

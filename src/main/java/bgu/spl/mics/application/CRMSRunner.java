@@ -46,7 +46,7 @@ public class CRMSRunner {
         GPUService gpuService2 = new GPUService("222",gpu2);
         CPUService cpuService1 = new CPUService("",cpu1);
         CPUService cpuService2 = new CPUService("",cpu2);
-        TimeService timeService = new TimeService(2,999,"");
+        TimeService timeService = new TimeService(2,9999,"");
         Thread t1 = new Thread(studentService1);
         Thread t5 = new Thread(studentService2);
         Thread t2 = new Thread(gpuService1);
@@ -76,11 +76,11 @@ public class CRMSRunner {
         t5.start();
         t4.start();
 
-        try {
+/*        try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
         //t4.interrupt();
         System.out.println("Hello World!");
 
