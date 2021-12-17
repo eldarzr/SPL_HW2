@@ -17,6 +17,7 @@ public class Model {
     private String name;
     private Data data;
     private Student student;
+    private final double PROBABILITY;
 
     public Model(String name, Data data, Student student) {
         this.status=Status.PreTrained;
@@ -24,6 +25,13 @@ public class Model {
         this.name = name;
         this.data = data;
         this.student = student;
+        PROBABILITY = initProbability(student.getStatus());
+    }
+
+    private double initProbability(Student.Degree degree){
+        if(degree == Student.Degree.PhD)
+            return 0.8;
+        else return 0.6;
     }
 
     public Status getStatus() {
@@ -44,5 +52,29 @@ public class Model {
 
     public Student getStudent() {
         return student;
+    }
+
+    public void setStatus(String status) {
+        if(status.equals("PreTrained"))
+            this.status = Status.PreTrained;
+        else if(status.equals("Training"))
+            this.status = Status.Training;
+        else if(status.equals("Trained"))
+            this.status = Status.Trained;
+        else if(status.equals("Tested"))
+            this.status = Status.Tested;
+    }
+
+    public void setResults(String results) {
+        if(results.equals("None"))
+            this.results = Results.None;
+        else if(results.equals("Good"))
+            this.results = Results.Good;
+        else if(results.equals("Bad"))
+            this.results = Results.Bad;
+    }
+
+    public double getPROBABILITY() {
+        return PROBABILITY;
     }
 }

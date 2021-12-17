@@ -1,8 +1,10 @@
 package bgu.spl.mics.application.objects;
 
 import bgu.spl.mics.Future;
+import bgu.spl.mics.application.messages.TestModelEvent;
 
 import java.util.Collection;
+import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
@@ -12,6 +14,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @INV: trainedData.Size()<=Model.getData().getSize() && dataSent<=Model.getData().getSize()
  */
 public class GPU {
+
 
     /**
      * Enum representing the type of the GPU.
@@ -64,8 +67,9 @@ public class GPU {
     }
 
     public void setTrainModel(Model model, Future future){
-        System.out.println("gpu got new model");
+        //System.out.println("gpu got new model");
         this.model=model;
+        model.setStatus("Training");
         this.future = future;
         //processedData;
         //trainedData;
@@ -81,13 +85,33 @@ public class GPU {
 
     }
 
+    public void setTestModel(Model model, Future future){
+        //System.out.println("gpu got new model");
+        this.model=model;
+        this.future = future;
+        isCompleted = false;
+        dataSent=0;
+    }
+
 
     public void onTick() {
-        if(trainedData.size() < model.getData().getSize()/1000){
-            trainData();
-            sendUnprocessedData();
+        if(model != null && model.getStatus() == Model.Status.Training) {
+            if (trainedData.size() < model.getData().getSize() / 1000) {
+                System.out.println(model.getName());
+                trainData();
+                sendUnprocessedData();
+            }
+            else complete();
         }
-        else complete();
+        if(model != null && model.getStatus() == Model.Status.Trained){
+            Random random = new Random();
+            double result = random.nextDouble();
+            if(result >= model.getPROBABILITY())
+                model.setResults("GOOD");
+            else model.setResults("BAD");
+            future.resolve("Tested");
+            model = null;
+        }
     }
 
     /**
@@ -102,8 +126,8 @@ public class GPU {
         while (!unProcessedData.isEmpty() && numOfDataInProcess<NUM_OF_BATCHES){
             cluster.sendData(unProcessedData.remove(), db -> {
                 processedData.add(db);
-                numOfDataInProcess++;
             });
+            numOfDataInProcess++;
         }
     }
     /**
@@ -130,6 +154,7 @@ public class GPU {
             trainedData.add(db);
             ticks = 0;
             numOfDataInProcess--;
+            //System.out.println("gpu training " + db.getIndex() +  " data from " + model.getName());
         }
     }
     /**
@@ -139,7 +164,8 @@ public class GPU {
      */
     public void complete(){
         // TODO Auto-generated method stub
-        future.resolve(Model.Status.Trained);
+        future.resolve("Trained");
+        model = null;
     }
 
     /**
@@ -149,7 +175,6 @@ public class GPU {
      */
     public void testModel(){
         // TODO Auto-generated method stub
-
     }
     /**
      * update ticks
@@ -158,6 +183,12 @@ public class GPU {
     public void updateTicks(){
         // TODO Auto-generated method stub
         ticks++;
+        //System.out.println("aaaa");
+    }
+
+    public void terminate() {
+        if(model != null)
+            future.resolve("");
     }
 
     public void registerCluster() {

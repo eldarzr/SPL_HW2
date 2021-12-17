@@ -25,7 +25,7 @@ public class CPU {
     private long ticks;
     private DataBatch currentDB;
 
-    public CPU(int cores,long ticks) {
+    public CPU(int cores) {
         this.cores = cores;
         this.data = new ArrayList<>();
         this.cluster = Cluster.getInstance();
@@ -58,6 +58,7 @@ public class CPU {
             Data.Type type = dataBatch.getData().getType();
             int requiredTick = getRequiredTicks(type);
             if (ticks >= requiredTick) {
+                //System.out.println("cpu process data");
                 dataBatch = queue.remove();
                 queue.remove(dataBatch);
                 ticks = 0;
@@ -97,6 +98,10 @@ public class CPU {
     public void updateTicks(){
         // TODO Auto-generated method stub
         ticks++;
+    }
+
+    public void registerCluster() {
+        cluster.registerCPU(this);
     }
 
     public int getCores() {

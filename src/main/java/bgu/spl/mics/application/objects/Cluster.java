@@ -39,12 +39,19 @@ public class Cluster {
 	private Cluster(){
 		gpus = new ArrayList<>();
 		cpus = new ConcurrentLinkedQueue<>();
+		calls = new ConcurrentHashMap<>();
 	}
 
 	public void sendData(DataBatch dataBatch, Callback<DataBatch> callback){
-		CPU curentCPU = cpus.remove();
+		CPU curentCPU;
+		synchronized (cpus) {
+			curentCPU = cpus.remove();
+			cpus.add(curentCPU);
+		}
 		calls.put(dataBatch,callback);
-		curentCPU.addUnprocessedData(dataBatch);
+		//synchronized (curentCPU) {
+			curentCPU.addUnprocessedData(dataBatch);
+		//}
 	}
 
 	public void sendProcessedData(DataBatch dataBatch) {

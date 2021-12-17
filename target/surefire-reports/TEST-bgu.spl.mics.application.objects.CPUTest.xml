@@ -63,7 +63,7 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="bgu.spl.mics.application.objects.CPUTest" name="testProcessData" time="0.009">
+  <testcase classname="bgu.spl.mics.application.objects.CPUTest" name="testProcessData" time="0.008">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at bgu.spl.mics.application.objects.CPUTest.testProcessData(CPUTest.java:32)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -93,7 +93,7 @@
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 </error>
   </testcase>
-  <testcase classname="bgu.spl.mics.application.objects.CPUTest" name="testAddUnprocessedData" time="0.001">
+  <testcase classname="bgu.spl.mics.application.objects.CPUTest" name="testAddUnprocessedData" time="0.002">
     <error type="java.lang.NullPointerException">java.lang.NullPointerException
 	at bgu.spl.mics.application.objects.CPUTest.testAddUnprocessedData(CPUTest.java:24)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)

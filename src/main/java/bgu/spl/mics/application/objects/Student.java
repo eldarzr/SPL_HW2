@@ -36,18 +36,23 @@ public class Student {
     }
 
     public Model getCurrentModel(){
-    if(!hasNext())
+        if(!hasNext())
             return null; //  **** EXCEPTION >???? ***
+        Model m = modelLists.get(currModel);
         currModel++;
-        return modelLists.get(currModel);
+        return m;
     }
 
     public boolean hasNext() {
-        return (currModel >= modelLists.size() || modelLists.isEmpty());
+        return  !(modelLists.isEmpty() || currModel>=modelLists.size());
     }
 
     public void addModel (Model m){
         this.modelLists.add(m);
 
+    }
+
+    public Degree getStatus() {
+        return status;
     }
 }

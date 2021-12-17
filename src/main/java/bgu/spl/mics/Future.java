@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Future<T> {
 	private T result;
+	private Object o;
 	/**
 	 * This should be the the only public constructor in this class.
 	 *
@@ -19,6 +20,7 @@ public class Future<T> {
 	public Future() {
 		//TODO: implement this
 		result = null;
+		o = new Object();
 	}
 	
 	/**
@@ -29,18 +31,17 @@ public class Future<T> {
      * @return return the result of type T if it is available, if not wait until it is available.
      * 	       
      */
-	public T get() {
+	public synchronized T get() {
 		//TODO: implement this.
-
 		try {
-			synchronized (this){
-				while (!isDone()){
-					this.wait();
-				}
-				return result;
+			while (!isDone()) {
+				wait();
+				//System.out.println("wait");
 			}
+			return result;
+		} catch (InterruptedException e) {
+			//System.out.println("wait");
 		}
-		catch (InterruptedException e) {}
 		return null;
 	}
 	
@@ -52,7 +53,7 @@ public class Future<T> {
 	public synchronized void resolve (T result) {
 		//TODO: implement this.
 		this.result = result;
-		this.notifyAll();
+		notifyAll();
 	}
 	
 	/**

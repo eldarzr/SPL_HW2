@@ -2,6 +2,7 @@ package bgu.spl.mics.application.services;
 
 import bgu.spl.mics.Callback;
 import bgu.spl.mics.MicroService;
+import bgu.spl.mics.application.messages.CancelBroadcast;
 import bgu.spl.mics.application.messages.TickBroadcast;
 
 import java.util.Timer;
@@ -32,20 +33,19 @@ public class TimeService extends MicroService {
 		timer = new Timer();
 
 
-		subscribeBroadcast(TickBroadcast.class, new Callback<TickBroadcast>() {
-			@Override
-			public void call(TickBroadcast c) {
-				if (counter < duration) {
-					timer.schedule(new TimerTask() {
-						@Override
-						public void run() {
-							sendBroadcast(new TickBroadcast());
-						}
-					}, speed);
-					counter++;
-				}
-				System.out.println(counter);
+		subscribeBroadcast(CancelBroadcast.class, c -> terminate());
+		subscribeBroadcast(TickBroadcast.class, c ->{
+			if (counter < duration) {
+				timer.schedule(new TimerTask() {
+					@Override
+					public void run() {
+						sendBroadcast(new TickBroadcast());
+					}
+				}, speed);
+				counter++;
 			}
+			else sendBroadcast(new CancelBroadcast());
+			//System.out.println(counter);
 		});
 	}
 

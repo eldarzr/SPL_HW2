@@ -1,9 +1,8 @@
 package bgu.spl.mics.application;
 
-import bgu.spl.mics.application.objects.Data;
-import bgu.spl.mics.application.objects.GPU;
-import bgu.spl.mics.application.objects.Model;
-import bgu.spl.mics.application.objects.Student;
+import bgu.spl.mics.MessageBusImpl;
+import bgu.spl.mics.application.objects.*;
+import bgu.spl.mics.application.services.CPUService;
 import bgu.spl.mics.application.services.GPUService;
 import bgu.spl.mics.application.services.StudentService;
 import bgu.spl.mics.application.services.TimeService;
@@ -24,24 +23,66 @@ public class CRMSRunner {
     public static void main(String[] args)
     {
 
-        List<Model> models = new ArrayList<>();
-        Student s = new Student("Simba","Computer Science", MSc,0,0);
-        s.addModel(new Model("YOLO10",new Data(Images,0,200000),s));
-        s.addModel(new Model("ResNet9000",new Data(Images,0,200000),s));
+        List<Model> models1 = new ArrayList<>();
+        Student s1 = new Student("Simba","Computer Science", MSc,0,0);
+        s1.addModel(new Model("1YOLO10",new Data(Images,0,200000),s1));
+        s1.addModel(new Model("1ResNet9000",new Data(Images,0,200000),s1));
+        s1.addModel(new Model("1hjjj",new Data(Images,0,200000),s1));
 
-        StudentService studentService = new StudentService("",s);
+        StudentService studentService1 = new StudentService("student1",s1);
+        List<Model> models2 = new ArrayList<>();
+        Student s2 = new Student("Simba","Computer Science", MSc,0,0);
+        s2.addModel(new Model("2YOLO10",new Data(Images,0,200000),s2));
+        s2.addModel(new Model("2ResNet9000",new Data(Images,0,200000),s2));
+        s2.addModel(new Model("2hjnjnjk",new Data(Images,0,200000),s2));
 
-        GPU gpu = new GPU(RTX3090);
-        GPUService gpuService = new GPUService("",gpu);
-        TimeService timeService = new TimeService(2,9999,"");
-        Thread t3 = new Thread(studentService);
-        Thread t1 = new Thread(gpuService);
-        Thread t2 = new Thread(timeService);
-        t1.start();
+        StudentService studentService2 = new StudentService("student2",s2);
+
+        GPU gpu1 = new GPU(RTX3090);
+        CPU cpu1 = new CPU(16);
+        CPU cpu2 = new CPU(16);
+        GPUService gpuService1 = new GPUService("111",gpu1);
+        GPU gpu2 = new GPU(RTX3090);
+        GPUService gpuService2 = new GPUService("222",gpu2);
+        CPUService cpuService1 = new CPUService("",cpu1);
+        CPUService cpuService2 = new CPUService("",cpu2);
+        TimeService timeService = new TimeService(2,999,"");
+        Thread t1 = new Thread(studentService1);
+        Thread t5 = new Thread(studentService2);
+        Thread t2 = new Thread(gpuService1);
+        Thread t6 = new Thread(gpuService2);
+        Thread t3 = new Thread(cpuService1);
+        Thread t7 = new Thread(cpuService2);
+        Thread t4 = new Thread(timeService);
+
+        MessageBusImpl messageBus = MessageBusImpl.getInstance();
+        messageBus.register(studentService1);
+        messageBus.register(studentService2);
+        messageBus.register(gpuService1);
+        messageBus.register(gpuService2);
+        messageBus.register(cpuService1);
+        messageBus.register(cpuService2);
+        messageBus.register(timeService);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+
+        }
         t2.start();
+        t6.start();
         t3.start();
+        t7.start();
+        t1.start();
+        t5.start();
+        t4.start();
 
-
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        //t4.interrupt();
         System.out.println("Hello World!");
+
     }
 }

@@ -2,9 +2,12 @@ package bgu.spl.mics.application.services;
 
 import bgu.spl.mics.Callback;
 import bgu.spl.mics.MicroService;
+import bgu.spl.mics.application.messages.CancelBroadcast;
 import bgu.spl.mics.application.messages.TickBroadcast;
 import bgu.spl.mics.application.messages.TrainModelEvent;
 import bgu.spl.mics.application.objects.CPU;
+
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * CPU service is responsible for handling the {@link DataPreProcessEvent}.
@@ -19,6 +22,7 @@ public class CPUService extends MicroService {
     public CPUService(String name,CPU cpu) {
         super("Change_This_Name");
         this.cpu=cpu;
+        cpu.registerCluster();
         // TODO Implement this
         subscribe();
     }
@@ -35,6 +39,7 @@ public class CPUService extends MicroService {
     }
 
     private void subscribe() {
+        subscribeBroadcast(CancelBroadcast.class, c -> terminate());
         subscribeBroadcast(TickBroadcast.class, tick -> {
             cpu.updateTicks();
             onProcess();

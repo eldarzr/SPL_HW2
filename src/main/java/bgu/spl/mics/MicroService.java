@@ -35,6 +35,7 @@ public abstract class MicroService implements Runnable {
         this.name = name;
         msgBus = MessageBusImpl.getInstance();
         calls = new HashMap<>();
+        msgBus.register(this);
     }
 
     /**
@@ -145,6 +146,7 @@ public abstract class MicroService implements Runnable {
      */
     protected final void terminate() {
         this.terminated = true;
+        Thread.currentThread().interrupt();
     }
 
     /**
@@ -161,17 +163,19 @@ public abstract class MicroService implements Runnable {
      */
     @Override
     public final void run() {
-        msgBus.register(this);
+        //msgBus.register(this);
         initialize();
         while (!terminated) {
             try {
                 Message m = msgBus.awaitMessage(this);
                 calls.get(m.getClass()).call(m);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
+                //System.out.println(getName() + " is terminated");
             }
-            System.out.println("NOT IMPLEMENTED!!!"); //TODO: you should delete this line :)
+            //System.out.println("NOT IMPLEMENTED!!!"); //TODO: you should delete this line :)
         }
+        System.out.println(getName() + " is terminated");
     }
 
 }

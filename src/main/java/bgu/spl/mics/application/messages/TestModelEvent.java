@@ -4,12 +4,11 @@ import bgu.spl.mics.Event;
 import bgu.spl.mics.Future;
 import bgu.spl.mics.application.objects.Model;
 
-public class TrainModelEvent implements Event<String> {
-
+public class TestModelEvent implements Event<String> {
     Model model;
     Future future;
 
-    public TrainModelEvent(Model model) {
+    public TestModelEvent(Model model) {
         this.model = model;
         future = new Future();
     }

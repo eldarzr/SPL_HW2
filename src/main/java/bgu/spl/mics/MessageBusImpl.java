@@ -1,5 +1,6 @@
 package bgu.spl.mics;
 
+import bgu.spl.mics.application.messages.CancelBroadcast;
 import bgu.spl.mics.application.objects.Cluster;
 import bgu.spl.mics.example.ServiceCreator;
 
@@ -70,6 +71,7 @@ public class MessageBusImpl implements MessageBus {
 			synchronized (queue){
 				queue.add(b);
 				queue.notifyAll();
+				//if(b.getClass() == CancelBroadcast.class)
 			}
 		}
 	}
@@ -80,14 +82,19 @@ public class MessageBusImpl implements MessageBus {
 		// TODO Auto-generated method stub
 		//// *** CHECK IF Q EXISTS ****
 		Queue<MicroService> ms = eventServices.get(e.getClass());
-		MicroService m = ms.remove();
+		MicroService m;
+		//System.out.println("333333333333333333");
+		synchronized (ms) {
+			m = ms.remove();
+			ms.add(m);
+			System.out.println(m.getName());
+		}
 		ConcurrentLinkedQueue<Message> queue = queues.get(m);
 		synchronized (queue){
 			queue.add(e);
 			queue.notifyAll();
 		}
 		//queues.get(m).add(e);
-		ms.add(m);
 		return e.getFuture();
 	}
 
