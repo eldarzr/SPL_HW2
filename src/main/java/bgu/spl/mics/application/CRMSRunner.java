@@ -1,6 +1,7 @@
 package bgu.spl.mics.application;
 
 import bgu.spl.mics.MessageBusImpl;
+import bgu.spl.mics.MicroService;
 import bgu.spl.mics.application.objects.*;
 import bgu.spl.mics.application.services.CPUService;
 import bgu.spl.mics.application.services.GPUService;
@@ -31,6 +32,7 @@ public class CRMSRunner {
 
         String path = "/home/spl211/SPL_HW2/example_input.json";
         FileParser fp = new FileParser(path);
+        runThreads(fp);
         // parser("/home/spl211/SPL_HW2/example_input.json");
 
 /*
@@ -135,6 +137,20 @@ public class CRMSRunner {
     }out.println("Hello World!");
 */
 
+    }
+
+    private static void runThreads(FileParser fp) {
+        MessageBusImpl messageBus = MessageBusImpl.getInstance();
+        ArrayList<MicroService> allMicroServices = fp.get_allMicroServices();
+        ArrayList<Thread> allThreads = new ArrayList<>();
+        for(MicroService e : allMicroServices){
+            Thread t = new Thread(e);
+            allThreads.add(t);
+            messageBus.register(e);
+        }
+        for(Thread t : allThreads){
+            t.start();
+        }
     }
 }
 

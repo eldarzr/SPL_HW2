@@ -114,7 +114,9 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	public void unregister(MicroService m) {
 		// TODO Auto-generated method stub
+
 		queues.remove(m);
+
 	}
 
 	@Override

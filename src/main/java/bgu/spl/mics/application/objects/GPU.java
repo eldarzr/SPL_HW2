@@ -107,7 +107,7 @@ public class GPU {
     public void onTick() {
         if(model != null && model.getStatus() == Model.Status.Training) {
             if (trainedData.size() < model.getData().getSize() / 1000) {
-                System.out.println(model.getName());
+                //System.out.println(model.getName());
                 trainData();
                 sendUnprocessedData();
             }
@@ -117,8 +117,8 @@ public class GPU {
             Random random = new Random();
             double result = random.nextDouble();
             if(result >= model.getPROBABILITY())
-                model.setResults("GOOD");
-            else model.setResults("BAD");
+                model.setResults("Good");
+            else model.setResults("Bad");
             future.resolve("Tested");
             model = null;
         }

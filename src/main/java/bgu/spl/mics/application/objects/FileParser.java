@@ -65,8 +65,8 @@ public class FileParser {
             JsonArray jsonArrayOfGpus = fileObj.get("GPUS").getAsJsonArray();
             int numOfGPUS = 1;
             for (JsonElement GpuElement : jsonArrayOfGpus){
-                JsonObject GPUObject = GpuElement.getAsJsonObject();
-                String gpuName =GPUObject.getAsString();
+                //JsonObject GPUObject = GpuElement.getAsJsonObject();
+                String gpuName =GpuElement.getAsString();
                 GPU gpu = new GPU(gpuName);
                 GPUService gpuService = new GPUService("Gpu number :"+numOfGPUS,gpu);
                 numOfGPUS++;
@@ -78,8 +78,9 @@ public class FileParser {
             JsonArray jsonArrayOfCpus = fileObj.get("CPUS").getAsJsonArray();
             int numOfCPUS = 1;
             for (JsonElement CpuElement : jsonArrayOfCpus){
-                JsonObject CPUObject = CpuElement.getAsJsonObject();
-                int cpuCores =CPUObject.getAsInt();
+               // JsonObject CPUObject = CpuElement.getAsJsonObject();
+                //String gpuName =CpuElement.getAsString();
+                int cpuCores =CpuElement.getAsInt();
                 CPU cpu = new CPU(cpuCores);
                 CPUService cpuService = new CPUService("Cpu number :"+numOfCPUS,cpu);
                 numOfGPUS++;

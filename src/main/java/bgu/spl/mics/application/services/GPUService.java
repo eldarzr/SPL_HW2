@@ -7,6 +7,8 @@ import bgu.spl.mics.application.messages.TestModelEvent;
 import bgu.spl.mics.application.messages.TickBroadcast;
 import bgu.spl.mics.application.messages.TrainModelEvent;
 import bgu.spl.mics.application.objects.GPU;
+import bgu.spl.mics.application.objects.Model;
+import org.junit.internal.runners.TestMethod;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -57,6 +59,10 @@ public class GPUService extends MicroService {
 
     private void subscribe() {
         subscribeBroadcast(CancelBroadcast.class, c -> {
+            for(TrainModelEvent t : trainModelsQueue)
+                t.getFuture().resolve("");
+            for(TestModelEvent t : testModelsQueue)
+                t.getFuture().resolve("");
             gpu.terminate();
             terminate();
         });

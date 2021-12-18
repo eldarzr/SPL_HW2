@@ -20,7 +20,7 @@ public class CPUService extends MicroService {
     private CPU cpu;
 
     public CPUService(String name,CPU cpu) {
-        super("Change_This_Name");
+        super("CPUService " + name);
         this.cpu=cpu;
         cpu.registerCluster();
         // TODO Implement this

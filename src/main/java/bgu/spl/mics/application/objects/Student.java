@@ -72,10 +72,13 @@ public class Student {
 
     public void addPublication() {
         this.publications++;
+        System.out.println(name + " pub " + publications);
     }
 
     public void addPapersRead() {
         this.papersRead++;
+        System.out.println(name + " read " + papersRead);
+
     }
 
 }

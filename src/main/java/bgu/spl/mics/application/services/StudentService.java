@@ -31,7 +31,7 @@ public class StudentService extends MicroService {
    private Student student;
 
     public StudentService(String name) {
-        super("Student Service");
+        super("Student Service" + name);
         // TODO Implement this
         subscribeBroadcast(CancelBroadcast.class, c -> terminate());
         subscribeEvent(ModelEvent.class, e -> startProcess());

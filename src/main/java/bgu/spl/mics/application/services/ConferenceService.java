@@ -24,9 +24,10 @@ public class ConferenceService extends MicroService {
     private int ticks;
     
     public ConferenceService(String name, ConfrenceInformation confrenceInformation) {
-        super("Change_This_Name");
+        super("confernceService " + name);
         // TODO Implement this
         this.confrenceInformation= confrenceInformation;
+        subscribeBroadcast(CancelBroadcast.class, c-> terminate());
         subscribeBroadcast(TickBroadcast.class, c -> onTick());
         subscribeEvent(PublishResultsEvent.class, e -> this.confrenceInformation.addModel(e.getModel()));
         ticks = 0;
