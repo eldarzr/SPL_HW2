@@ -69,4 +69,13 @@ public class Student {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void addPublication() {
+        this.publications++;
+    }
+
+    public void addPapersRead() {
+        this.papersRead++;
+    }
+
 }

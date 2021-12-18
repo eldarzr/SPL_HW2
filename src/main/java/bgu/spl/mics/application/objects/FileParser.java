@@ -95,7 +95,7 @@ public class FileParser {
                 String confName = confObject.get("name").getAsString();
                 int date = confObject.get("date").getAsInt();
                 ConfrenceInformation confInfo = new ConfrenceInformation(confName,date);
-                ConferenceService confS = new ConferenceService(confInfo);
+                ConferenceService confS = new ConferenceService(confName,confInfo);
                 _allConfService.add(confS);
                 _allMicroServices.add(confS);
 

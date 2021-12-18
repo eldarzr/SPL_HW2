@@ -77,4 +77,6 @@ public class Model {
     public double getPROBABILITY() {
         return PROBABILITY;
     }
+
+    public boolean isModelGood(){return results == Results.Good;}
 }
