@@ -91,7 +91,6 @@ public class FileParser {
             JsonArray jsonArrayOfConference = fileObj.get("Conferences").getAsJsonArray();
             for (JsonElement confElement : jsonArrayOfConference) {
                 JsonObject confObject = confElement.getAsJsonObject();
-
                 String confName = confObject.get("name").getAsString();
                 int date = confObject.get("date").getAsInt();
                 ConfrenceInformation confInfo = new ConfrenceInformation(confName,date);
@@ -122,7 +121,7 @@ public class FileParser {
 
     public void exportFile() {
         try {
-            FileWriter myWriter = new FileWriter("filename.txt");
+            FileWriter myWriter = new FileWriter("output.txt");
             String space = "    ";
             String space8 = space + space;
             String space12 = space8 + space;

@@ -4,7 +4,7 @@
             "name":"Simba",
             "department":"Computer Science",
             "status":"MSc",
-            "publications":"0",
+            "publications":"1",
             "papersRead":"0",
             "trainedModels":[
                 {
@@ -14,7 +14,7 @@
                         "size":"200000"
                     },
                     "status":"Tested",
-                    "results":"Bad"
+                    "results":"Good"
                 },
             ]
         }
@@ -23,7 +23,7 @@
             "department":"EE",
             "status":"PhD",
             "publications":"0",
-            "papersRead":"0",
+            "papersRead":"1",
             "trainedModels":[]
         }
         {
@@ -31,7 +31,7 @@
             "department":"Computer Science",
             "status":"PhD",
             "publications":"0",
-            "papersRead":"0",
+            "papersRead":"1",
             "trainedModels":[
                 {
                     "name":"Bert",
@@ -59,7 +59,7 @@
             "department":"SE",
             "status":"MSc",
             "publications":"0",
-            "papersRead":"0",
+            "papersRead":"1",
             "trainedModels":[
                 {
                     "name":"Percepetron",
@@ -77,7 +77,7 @@
             "department":"Computer Science",
             "status":"PhD",
             "publications":"0",
-            "papersRead":"0",
+            "papersRead":"1",
             "trainedModels":[]
         }
     ],
@@ -85,7 +85,17 @@
             "name":"ICML",
             "date":"ICML",
             "publications:":[
-]
+
+                {
+                    "name":"YOLO10",
+                    "data":{
+                        "type":"Images",
+                        "size":"200000"
+                    },
+                    "status":"Tested",
+                    "results":"Good"
+                },
+            ]
         }
         {
             "name":"NeurIPS",
@@ -112,6 +122,6 @@
 ]
         }
     ],
-"cpuTimeUsed":59255,
-"gpuTimeUsed":67552,
-"batchesProcessed":59255,
+"cpuTimeUsed":59270,
+"gpuTimeUsed":67594,
+"batchesProcessed":59261,

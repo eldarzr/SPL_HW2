@@ -64,8 +64,8 @@ public class Cluster {
 
 	public void sendProcessedData(DataBatch dataBatch) {
 		calls.get(dataBatch).call(dataBatch);
+		totalProcessedData++;
 		synchronized (totalCpusTime) {
-			totalProcessedData++;
 			totalCpusTime++;
 		}
 	}
