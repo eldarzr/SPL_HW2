@@ -61,4 +61,13 @@ public class Student {
             return Degree.MSc;
         return Degree.PhD;
     }
+
+    public void addPublication() {
+        this.publications++;
+    }
+
+    public void addPapersRead() {
+        this.papersRead++;
+    }
+
 }

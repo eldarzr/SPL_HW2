@@ -4,9 +4,7 @@ import bgu.spl.mics.Callback;
 import bgu.spl.mics.Event;
 import bgu.spl.mics.Future;
 import bgu.spl.mics.MicroService;
-import bgu.spl.mics.application.messages.CancelBroadcast;
-import bgu.spl.mics.application.messages.TestModelEvent;
-import bgu.spl.mics.application.messages.TrainModelEvent;
+import bgu.spl.mics.application.messages.*;
 import bgu.spl.mics.application.objects.Model;
 import bgu.spl.mics.application.objects.Student;
 import jdk.net.SocketFlow;
@@ -35,9 +33,15 @@ public class StudentService extends MicroService {
     public StudentService(String name) {
         super("Student Service");
         // TODO Implement this
-        this.student = student;
         subscribeBroadcast(CancelBroadcast.class, c -> terminate());
         subscribeEvent(ModelEvent.class, e -> startProcess());
+        subscribeBroadcast(PublishConferenceBroadcast.class, cb ->{
+            for (Model m: cb.getModels()) {
+                if(m.getStudent() == student)
+                    student.addPublication();
+                else student.addPapersRead();
+            }
+        });
     }
     public StudentService(String name, Student student) {
         super("Student Service");
@@ -45,6 +49,13 @@ public class StudentService extends MicroService {
         this.student = student;
         subscribeBroadcast(CancelBroadcast.class, c -> terminate());
         subscribeEvent(ModelEvent.class, e -> startProcess());
+        subscribeBroadcast(PublishConferenceBroadcast.class, cb ->{
+            for (Model m: cb.getModels()) {
+                if(m.getStudent() == this.student)
+                    this.student.addPublication();
+                else this.student.addPapersRead();
+            }
+        });
     }
 
     @Override
@@ -73,6 +84,8 @@ public class StudentService extends MicroService {
                 //Thread.currentThread().interrupt();
             model.setStatus(status);
             System.out.println("model " + model.getName() + " is " + status);
+            if(model.isModelGood())
+                sendEvent(new PublishResultsEvent(model));
             sendEvent(new ModelEvent());
         }
     }
