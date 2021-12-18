@@ -2,7 +2,7 @@
 Test set: bgu.spl.mics.application.objects.GPUTest
 -------------------------------------------------------------------------------
 Tests run: 6, Failures: 0, Errors: 6, Skipped: 0, Time elapsed: 0.001 sec <<< FAILURE!
-testSendUnprocessedData(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0.001 sec  <<< ERROR!
+testSendUnprocessedData(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0 sec  <<< ERROR!
 java.lang.NullPointerException
 	at bgu.spl.mics.application.objects.GPUTest.testSendUnprocessedData(GPUTest.java:21)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -147,7 +147,7 @@ java.lang.NullPointerException
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
 
-testReceivedProcessedData(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0 sec  <<< ERROR!
+testReceivedProcessedData(bgu.spl.mics.application.objects.GPUTest)  Time elapsed: 0.001 sec  <<< ERROR!
 java.lang.NullPointerException
 	at bgu.spl.mics.application.objects.GPUTest.testReceivedProcessedData(GPUTest.java:29)
 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)

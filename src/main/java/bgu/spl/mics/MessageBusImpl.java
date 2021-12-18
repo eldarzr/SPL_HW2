@@ -116,7 +116,10 @@ public class MessageBusImpl implements MessageBus {
 		// TODO Auto-generated method stub
 
 		queues.remove(m);
-
+/*		for (ConcurrentLinkedQueue q : eventServices.values())
+			q.remove(m);
+		for (List<MicroService> q : broadcastServices.values())
+			q.remove(m);*/
 	}
 
 	@Override
