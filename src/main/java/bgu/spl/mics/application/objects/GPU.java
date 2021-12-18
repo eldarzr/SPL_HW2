@@ -139,6 +139,7 @@ public class GPU {
             });
             numOfDataInProcess++;
         }
+        cluster.updateGpuTime();
     }
     /**
      * Adds the {@link DataBatch} {@code b} to the proccesedData

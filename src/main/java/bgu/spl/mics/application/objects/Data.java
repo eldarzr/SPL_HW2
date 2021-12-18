@@ -43,6 +43,10 @@ public class Data {
         return processed;
     }
 
+    public void addProcessed(int x) {
+        this.processed = this.processed + x;
+    }
+
     public int getSize() {
         return size;
     }

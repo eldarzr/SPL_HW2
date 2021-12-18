@@ -63,6 +63,7 @@ public class CPU {
                 queue.remove(dataBatch);
                 ticks = 0;
                 sendProcessedData(dataBatch);
+                dataBatch.getData().addProcessed(1000);
             }
         }
     }

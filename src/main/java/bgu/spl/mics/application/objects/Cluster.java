@@ -22,6 +22,10 @@ public class Cluster {
 	ConcurrentLinkedQueue<CPU> cpus;
 	Collection<GPU> gpus;
 	ConcurrentHashMap<DataBatch,Callback> calls;
+	String statistics;
+	Integer totalProcessedData;
+	Integer totalCpusTime;
+	Integer totalGpusTime;
 
 	private static class ClusterHolder{
 		private static Cluster instance = new Cluster();
@@ -40,6 +44,10 @@ public class Cluster {
 		gpus = new ArrayList<>();
 		cpus = new ConcurrentLinkedQueue<>();
 		calls = new ConcurrentHashMap<>();
+		statistics = "";
+		totalCpusTime=0;
+		totalGpusTime=0;
+		totalProcessedData=0;
 	}
 
 	public void sendData(DataBatch dataBatch, Callback<DataBatch> callback){
@@ -56,13 +64,38 @@ public class Cluster {
 
 	public void sendProcessedData(DataBatch dataBatch) {
 		calls.get(dataBatch).call(dataBatch);
+		synchronized (totalCpusTime) {
+			totalProcessedData++;
+			totalCpusTime++;
+		}
 	}
 
+	public void updateGpuTime() {
+		synchronized (totalGpusTime) {
+			totalGpusTime++;
+		}
+	}
 	public void registerGPU(GPU gpu){
 		gpus.add(gpu);
 	}
 
 	public void registerCPU(CPU cpu){
 		cpus.add(cpu);
+	}
+
+	public ConcurrentLinkedQueue<CPU> getCpus() {
+		return cpus;
+	}
+
+	public Integer getTotalProcessedData() {
+		return totalProcessedData;
+	}
+
+	public Integer getTotalCpusTime() {
+		return totalCpusTime;
+	}
+
+	public Integer getTotalGpusTime() {
+		return totalGpusTime;
 	}
 }

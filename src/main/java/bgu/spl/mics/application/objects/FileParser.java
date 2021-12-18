@@ -7,10 +7,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FileParser {
     String path;
@@ -120,5 +119,79 @@ public class FileParser {
     public ArrayList<MicroService> get_allMicroServices(){
         return _allMicroServices;
     }
-}
+
+    public void exportFile() {
+        try {
+            FileWriter myWriter = new FileWriter("filename.txt");
+            String space = "    ";
+            String space8 = space + space;
+            String space12 = space8 + space;
+            String space16 = space8 + space8;
+            String space20 = space16 + space;
+            String space24 = space12 + space12;
+
+
+            myWriter.write("{\n" + space + "\"students\":[" + "\n");
+            for (Student s : _allStudents) {
+                myWriter.write(space8 + "{" + "\n");
+                myWriter.write(space12 + "\"name\":" + "\"" + s.getName() + "\",\n");
+                myWriter.write(space12 + "\"department\":" + "\"" + s.getDepartment() + "\",\n");
+                myWriter.write(space12 + "\"status\":" + "\"" + s.getStatus().toString() + "\",\n");
+                myWriter.write(space12 + "\"publications\":" + "\"" + s.getPublications() + "\",\n");
+                myWriter.write(space12 + "\"papersRead\":" + "\"" + s.getPapersRead() + "\",\n");
+                myWriter.write(space12 + "\"trainedModels\":" + "[");
+                List<Model> trainedModels = s.getModelLists();
+                for (Model m : trainedModels) {
+                    if (m.getStatus() == Model.Status.Tested) {
+                        myWriter.write("\n" + space16 + "{" + "\n" + space20 + "\"name\":" + "\"" + m.getName() + "\",\n");
+                        myWriter.write(space20 + "\"data\":{" + "\n");
+                        myWriter.write(space24 + "\"type\":" + "\"" + m.getData().getType().toString() + "\",\n");
+                        myWriter.write(space24 + "\"size\":" + "\"" + m.getData().getSize() + "\"\n");
+                        myWriter.write(space20 + "},\n");
+                        myWriter.write(space20 + "\"status\":" + "\"" + m.getStatus().toString() + "\",\n");
+                        myWriter.write(space20 + "\"results\":" + "\"" + m.getResults().toString() + "\"\n");
+                        myWriter.write(space16 + "},\n" + space12);
+                    }
+                }
+                myWriter.write("]\n");
+                myWriter.write(space8 + "}\n");
+            }
+            myWriter.write(space + "],\n");
+
+            myWriter.write(space + "\"conferences\":[");
+            for (ConferenceService cs : _allConfService) {
+                myWriter.write(space8 + "{" + "\n");
+                myWriter.write(space12 + "\"name\":" + "\"" + cs.getConfrenceInformation().getName() + "\",\n");
+                myWriter.write(space12 + "\"date\":" + "\"" + cs.getConfrenceInformation().getName() + "\",\n");
+                myWriter.write(space12 + "\"publications:\":[\n");
+                List<Model> confModels = cs.getConfrenceInformation().getModels();
+                for (Model m : confModels) {
+                        myWriter.write("\n" + space16 + "{" + "\n" + space20 + "\"name\":" + "\"" + m.getName() + "\",\n");
+                        myWriter.write(space20 + "\"data\":{" + "\n");
+                        myWriter.write(space24 + "\"type\":" + "\"" + m.getData().getType().toString() + "\",\n");
+                        myWriter.write(space24 + "\"size\":" + "\"" + m.getData().getSize() + "\"\n");
+                        myWriter.write(space20 + "},\n");
+                        myWriter.write(space20 + "\"status\":" + "\"" + m.getStatus().toString() + "\",\n");
+                        myWriter.write(space20 + "\"results\":" + "\"" + m.getResults().toString() + "\"\n");
+                        myWriter.write(space16 + "},\n" + space12);
+                }
+                myWriter.write("]\n");
+                myWriter.write(space8 + "}\n");
+            }
+            myWriter.write(space + "],\n");
+            Cluster cluster =Cluster.getInstance();
+            myWriter.write("\"cpuTimeUsed\":"+cluster.getTotalCpusTime()+",\n");
+            myWriter.write("\"gpuTimeUsed\":"+cluster.getTotalGpusTime()+",\n");
+            myWriter.write("\"batchesProcessed\":"+cluster.getTotalProcessedData()+",\n");
+
+
+            myWriter.close();
+            } catch(IOException e){
+                System.out.println("An error occurred.");
+                e.printStackTrace();
+            }
+
+        }
+    }
+
 

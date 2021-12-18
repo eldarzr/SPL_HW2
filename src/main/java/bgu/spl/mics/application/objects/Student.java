@@ -81,4 +81,19 @@ public class Student {
 
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public int getPublications() {
+        return publications;
+    }
+
+    public int getPapersRead() {
+        return papersRead;
+    }
+
+    public List<Model> getModelLists() {
+        return modelLists;
+    }
 }

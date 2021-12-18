@@ -33,6 +33,7 @@ public class CRMSRunner {
         String path = "/home/spl211/SPL_HW2/example_input.json";
         FileParser fp = new FileParser(path);
         runThreads(fp);
+        fp.exportFile();
         // parser("/home/spl211/SPL_HW2/example_input.json");
 
 /*
@@ -151,6 +152,14 @@ public class CRMSRunner {
         for(Thread t : allThreads){
             t.start();
         }
+        for(Thread t : allThreads){
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 }
 

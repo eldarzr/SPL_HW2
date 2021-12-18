@@ -41,6 +41,10 @@ public class ConferenceService extends MicroService {
         }
     }
 
+    public ConfrenceInformation getConfrenceInformation() {
+        return confrenceInformation;
+    }
+
     @Override
     protected void initialize() {
         // TODO Implement this
