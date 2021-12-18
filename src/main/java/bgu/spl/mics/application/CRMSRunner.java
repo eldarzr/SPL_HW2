@@ -27,10 +27,11 @@ import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Text;
  * In the end, you should output a text file.
  */
 public class CRMSRunner {
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
 
-        parser("/home/spl211/SPL_HW2/example_input.json");
+        String path = "/home/spl211/SPL_HW2/example_input.json";
+        FileParser fp = new FileParser(path);
+        // parser("/home/spl211/SPL_HW2/example_input.json");
 
 /*
         List<Model> models1 = new ArrayList<>();
@@ -94,13 +95,7 @@ public class CRMSRunner {
         }*//*
 
         //t4.interrupt();
-        System.out.println("Hello World!");
-*/
-
-    }
-
-    private static void parser(String path){
-       File input = new File(path);
+        System.       File input = new File(path);
         try {
             JsonElement fileElement = JsonParser.parseReader(new FileReader(input));
             JsonObject fileObj = fileElement.getAsJsonObject();
@@ -137,5 +132,9 @@ public class CRMSRunner {
             System.err.println("Error in processing the input file");
             e.printStackTrace();
         }
+    }out.println("Hello World!");
+*/
+
     }
 }
+

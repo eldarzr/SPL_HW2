@@ -61,4 +61,12 @@ public class Student {
             return Degree.MSc;
         return Degree.PhD;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

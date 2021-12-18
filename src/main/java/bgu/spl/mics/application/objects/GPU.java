@@ -35,19 +35,29 @@ public class GPU {
     private int numOfDataInProcess;
     private Future future;
 
-    public GPU(Type type) {
-        this.type = type;
+    public GPU(String type) {
+        this.type = setType(type);
         this.model = null;
         cluster = Cluster.getInstance();
         isCompleted = false;
         ticks = 0;
         dataSent = 0;
-        NUM_OF_BATCHES = initNumOfBatches(type);
-        NUM_OF_TICKS = initNumOfTicks(type);
+        NUM_OF_BATCHES = initNumOfBatches(this.type);
+        NUM_OF_TICKS = initNumOfTicks(this.type);
         unProcessedData = new ConcurrentLinkedQueue<>();
         processedData = new ConcurrentLinkedQueue<>();
         trainedData = new ConcurrentLinkedQueue<>();
         numOfDataInProcess=0;
+    }
+
+    private Type setType(String type) {
+        if(type.equals("RTX3090")){
+            return Type.RTX3090;
+        }
+        if(type.equals("RTX2080")){
+            return Type.RTX2080;
+        }
+        return Type.GTX1080;
     }
 
     private int initNumOfBatches(Type type){
