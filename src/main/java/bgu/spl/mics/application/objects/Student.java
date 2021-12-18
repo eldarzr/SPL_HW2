@@ -25,10 +25,10 @@ public class Student {
     private List<Model> modelLists;
     private int currModel;
 
-    public Student(String name, String department, Degree status, int publications, int papersRead) {
+    public Student(String name, String department, String status, int publications, int papersRead) {
         this.name = name;
         this.department = department;
-        this.status = status;
+        this.status = setStatus(status);
         this.publications = publications;
         this.papersRead = papersRead;
         this.modelLists = new ArrayList<>();
@@ -54,5 +54,11 @@ public class Student {
 
     public Degree getStatus() {
         return status;
+    }
+
+    public Degree setStatus(String degree) {
+        if(degree.equals("MSc"))
+            return Degree.MSc;
+        return Degree.PhD;
     }
 }

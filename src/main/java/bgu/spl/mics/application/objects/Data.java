@@ -16,15 +16,28 @@ public class Data {
     private int processed;
     private int size;
 
-    public Data(Type type, int processed, int size) {
+    public Data(String type, int size) {
+        this.type = setType(type);
+        this.processed = 0;
+        this.size = size;
+    }
+    public Data(Type type, int p, int size) {
         this.type = type;
-        this.processed = processed;
+        this.processed = p;
         this.size = size;
     }
 
     public Type getType() {
         return type;
     }
+    public Type setType(String s) {
+        if(s.equals("Images"))
+        return Type.Images;
+        if(s.equals("Tabular"))
+            return Type.Tabular;
+            return Type.Text;
+    }
+
 
     public int getProcessed() {
         return processed;

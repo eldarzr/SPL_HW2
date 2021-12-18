@@ -6,7 +6,14 @@ import bgu.spl.mics.application.services.CPUService;
 import bgu.spl.mics.application.services.GPUService;
 import bgu.spl.mics.application.services.StudentService;
 import bgu.spl.mics.application.services.TimeService;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +30,9 @@ public class CRMSRunner {
     public static void main(String[] args)
     {
 
+        parser("/home/spl211/SPL_HW2/example_input.json");
+
+/*
         List<Model> models1 = new ArrayList<>();
         Student s1 = new Student("Simba","Computer Science", MSc,0,0);
         s1.addModel(new Model("1YOLO10",new Data(Images,0,200000),s1));
@@ -76,13 +86,56 @@ public class CRMSRunner {
         t5.start();
         t4.start();
 
+*/
 /*        try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }*//*
+
         //t4.interrupt();
         System.out.println("Hello World!");
+*/
 
+    }
+
+    private static void parser(String path){
+       File input = new File(path);
+        try {
+            JsonElement fileElement = JsonParser.parseReader(new FileReader(input));
+            JsonObject fileObj = fileElement.getAsJsonObject();
+
+            //students
+            JsonArray jsonArrayOfStudents = fileObj.get("Students").getAsJsonArray();
+            for (JsonElement studentElement : jsonArrayOfStudents){
+                JsonObject studentObject = studentElement.getAsJsonObject();
+
+                //data
+
+                String name = studentObject.get("name").getAsString();
+                String department = studentObject.get("department").getAsString();
+                String status = studentObject.get("status").getAsString();
+                Student s = new Student(name,department, status,0,0);
+                JsonArray jsonArrayOfModels = studentObject.get("models").getAsJsonArray();
+                for(JsonElement modelsEle : jsonArrayOfModels){
+                    JsonObject modelObject = modelsEle.getAsJsonObject();
+                    String modelName = modelObject.get("name").getAsString();
+                    String modelType = modelObject.get("type").getAsString();
+                    int modelSize = modelObject.get("size").getAsInt();
+                    Data data = new Data(modelType,modelSize);
+                    Model m = new Model(modelName,data,s);
+                    s.addModel(m);
+                }
+            }
+
+
+        } catch (FileNotFoundException e) {
+            System.err.println("Error : input file not found");
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            System.err.println("Error in processing the input file");
+            e.printStackTrace();
+        }
     }
 }
