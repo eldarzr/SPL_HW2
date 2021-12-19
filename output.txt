@@ -4,7 +4,6 @@
             "name":"Simba",
             "department":"Computer Science",
             "status":"MSc",
-<<<<<<< HEAD
             "publications":"1",
             "papersRead":"1",
             "trainedModels":[
@@ -17,22 +16,7 @@
                     "status":"Tested",
                     "results":"Good"
                 },
-            
-                {
-                    "name":"ResNet9000",
-                    "data":{
-                        "type":"Images",
-                        "size":"200000"
-                    },
-                    "status":"Tested",
-                    "results":"Bad"
-                },
             ]
-=======
-            "publications":"0",
-            "papersRead":"2",
-            "trainedModels":[]
->>>>>>> ff74d85b33bfdf87de6633d041ebf28da475a7fb
         }
         {
             "name":"Zazu",
@@ -46,32 +30,16 @@
             "name":"Pumba",
             "department":"Computer Science",
             "status":"PhD",
-<<<<<<< HEAD
             "publications":"0",
             "papersRead":"2",
             "trainedModels":[]
-=======
-            "publications":"1",
-            "papersRead":"1",
-            "trainedModels":[
-                {
-                    "name":"Bert",
-                    "data":{
-                        "type":"Text",
-                        "size":"1000000"
-                    },
-                    "status":"Tested",
-                    "results":"Good"
-                },
-            ]
->>>>>>> ff74d85b33bfdf87de6633d041ebf28da475a7fb
         }
         {
             "name":"Timon",
             "department":"SE",
             "status":"MSc",
-            "publications":"1",
-            "papersRead":"1",
+            "publications":"0",
+            "papersRead":"2",
             "trainedModels":[
                 {
                     "name":"Percepetron",
@@ -80,7 +48,7 @@
                         "size":"1000000"
                     },
                     "status":"Tested",
-                    "results":"Good"
+                    "results":"Bad"
                 },
             ]
         }
@@ -88,9 +56,19 @@
             "name":"Nala",
             "department":"Computer Science",
             "status":"PhD",
-            "publications":"0",
-            "papersRead":"2",
-            "trainedModels":[]
+            "publications":"1",
+            "papersRead":"1",
+            "trainedModels":[
+                {
+                    "name":"YOLO9000",
+                    "data":{
+                        "type":"Images",
+                        "size":"100000"
+                    },
+                    "status":"Tested",
+                    "results":"Good"
+                },
+            ]
         }
     ],
     "conferences":[        {
@@ -99,17 +77,10 @@
             "publications:":[
 
                 {
-<<<<<<< HEAD
-                    "name":"YOLO10",
+                    "name":"YOLO9000",
                     "data":{
                         "type":"Images",
-                        "size":"200000"
-=======
-                    "name":"Percepetron",
-                    "data":{
-                        "type":"Tabular",
-                        "size":"1000000"
->>>>>>> ff74d85b33bfdf87de6633d041ebf28da475a7fb
+                        "size":"100000"
                     },
                     "status":"Tested",
                     "results":"Good"
@@ -122,16 +93,10 @@
             "publications:":[
 
                 {
-<<<<<<< HEAD
-                    "name":"Percepetron",
+                    "name":"YOLO10",
                     "data":{
-                        "type":"Tabular",
-=======
-                    "name":"Bert",
-                    "data":{
-                        "type":"Text",
->>>>>>> ff74d85b33bfdf87de6633d041ebf28da475a7fb
-                        "size":"1000000"
+                        "type":"Images",
+                        "size":"200000"
                     },
                     "status":"Tested",
                     "results":"Good"
@@ -157,12 +122,6 @@
 ]
         }
     ],
-<<<<<<< HEAD
-"cpuTimeUsed":302402,
-"gpuTimeUsed":60261,
-"batchesProcessed":48873,
-=======
-"cpuTimeUsed":301308,
-"gpuTimeUsed":63574,
-"batchesProcessed":49184,
->>>>>>> ff74d85b33bfdf87de6633d041ebf28da475a7fb
+"cpuTimeUsed":301307,
+"gpuTimeUsed":63628,
+"batchesProcessed":49191,
