@@ -4,6 +4,7 @@
             "name":"Simba",
             "department":"Computer Science",
             "status":"MSc",
+<<<<<<< HEAD
             "publications":"1",
             "papersRead":"1",
             "trainedModels":[
@@ -27,6 +28,11 @@
                     "results":"Bad"
                 },
             ]
+=======
+            "publications":"0",
+            "papersRead":"2",
+            "trainedModels":[]
+>>>>>>> ff74d85b33bfdf87de6633d041ebf28da475a7fb
         }
         {
             "name":"Zazu",
@@ -40,9 +46,25 @@
             "name":"Pumba",
             "department":"Computer Science",
             "status":"PhD",
+<<<<<<< HEAD
             "publications":"0",
             "papersRead":"2",
             "trainedModels":[]
+=======
+            "publications":"1",
+            "papersRead":"1",
+            "trainedModels":[
+                {
+                    "name":"Bert",
+                    "data":{
+                        "type":"Text",
+                        "size":"1000000"
+                    },
+                    "status":"Tested",
+                    "results":"Good"
+                },
+            ]
+>>>>>>> ff74d85b33bfdf87de6633d041ebf28da475a7fb
         }
         {
             "name":"Timon",
@@ -77,10 +99,17 @@
             "publications:":[
 
                 {
+<<<<<<< HEAD
                     "name":"YOLO10",
                     "data":{
                         "type":"Images",
                         "size":"200000"
+=======
+                    "name":"Percepetron",
+                    "data":{
+                        "type":"Tabular",
+                        "size":"1000000"
+>>>>>>> ff74d85b33bfdf87de6633d041ebf28da475a7fb
                     },
                     "status":"Tested",
                     "results":"Good"
@@ -93,9 +122,15 @@
             "publications:":[
 
                 {
+<<<<<<< HEAD
                     "name":"Percepetron",
                     "data":{
                         "type":"Tabular",
+=======
+                    "name":"Bert",
+                    "data":{
+                        "type":"Text",
+>>>>>>> ff74d85b33bfdf87de6633d041ebf28da475a7fb
                         "size":"1000000"
                     },
                     "status":"Tested",
@@ -122,6 +157,12 @@
 ]
         }
     ],
+<<<<<<< HEAD
 "cpuTimeUsed":302402,
 "gpuTimeUsed":60261,
 "batchesProcessed":48873,
+=======
+"cpuTimeUsed":301308,
+"gpuTimeUsed":63574,
+"batchesProcessed":49184,
+>>>>>>> ff74d85b33bfdf87de6633d041ebf28da475a7fb

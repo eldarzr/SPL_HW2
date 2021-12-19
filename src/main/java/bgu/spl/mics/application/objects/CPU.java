@@ -64,6 +64,7 @@ public class CPU {
                 sendProcessedData(dataBatch);
                 cluster.updateTotalTicks(requiredTick);
                 dataBatch.getData().addProcessed(1000);
+                dataBatch.finishProcessed();
             }
         }
     }
