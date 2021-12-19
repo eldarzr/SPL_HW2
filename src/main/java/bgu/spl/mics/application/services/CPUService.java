@@ -6,6 +6,7 @@ import bgu.spl.mics.application.messages.CancelBroadcast;
 import bgu.spl.mics.application.messages.TickBroadcast;
 import bgu.spl.mics.application.messages.TrainModelEvent;
 import bgu.spl.mics.application.objects.CPU;
+import bgu.spl.mics.application.objects.Cluster;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -30,7 +31,7 @@ public class CPUService extends MicroService {
     @Override
     protected void initialize() {
         // TODO Implement this
-        subscribe();
+        //subscribe();
 
     }
 

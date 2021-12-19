@@ -62,6 +62,7 @@ public class CPU {
                 queue.remove(dataBatch);
                 ticks = 0;
                 sendProcessedData(dataBatch);
+                cluster.updateTotalTicks(requiredTick);
                 dataBatch.getData().addProcessed(1000);
             }
         }
@@ -98,6 +99,7 @@ public class CPU {
     public void updateTicks(){
         // TODO Auto-generated method stub
         ticks++;
+        //cluster.updateTotalTicks(1);
     }
 
     public void registerCluster() {

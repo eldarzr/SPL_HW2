@@ -67,16 +67,18 @@ public class MessageBusImpl implements MessageBus {
 		List<MicroService> _allb = broadcastServices.get(b.getClass());
 /*		synchronized (_allb) {
 			if(_allb != null && !_allb.isEmpty()) {*/
-				for (MicroService microService : _allb) {
-					//queues.get(microService).add(b);
-					ConcurrentLinkedQueue<Message> queue = queues.get(microService);
-					if (queue != null)
-						synchronized (queue) {
-							queue.add(b);
-							queue.notifyAll();
-							//if(b.getClass() == CancelBroadcast.class)
-						}
-				}
+		//synchronized (_allb) {
+			for (MicroService microService : _allb) {
+				//queues.get(microService).add(b);
+				ConcurrentLinkedQueue<Message> queue = queues.get(microService);
+				if (queue != null)
+					synchronized (queue) {
+						queue.add(b);
+						queue.notifyAll();
+						//if(b.getClass() == CancelBroadcast.class)
+					}
+			}
+		//}
 /*			}
 		}*/
 	}

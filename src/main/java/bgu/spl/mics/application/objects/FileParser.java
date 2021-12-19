@@ -82,7 +82,7 @@ public class FileParser {
                 int cpuCores =CpuElement.getAsInt();
                 CPU cpu = new CPU(cpuCores);
                 CPUService cpuService = new CPUService("Cpu number :"+numOfCPUS,cpu);
-                numOfGPUS++;
+                numOfCPUS++;
                 _allCPUSService.add(cpuService);
                 _allMicroServices.add(cpuService);
 

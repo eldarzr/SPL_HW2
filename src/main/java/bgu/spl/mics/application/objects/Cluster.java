@@ -28,6 +28,8 @@ public class Cluster {
 	AtomicInteger totalCpusTime;
 	AtomicInteger totalGpusTime;
 
+
+
 	private static class ClusterHolder{
 		private static Cluster instance = new Cluster();
 	}
@@ -66,7 +68,7 @@ public class Cluster {
 	public void sendProcessedData(DataBatch dataBatch) {
 		calls.get(dataBatch).call(dataBatch);
 		totalProcessedData.getAndIncrement();
-		totalCpusTime.getAndIncrement();
+		//totalCpusTime.getAndIncrement();
 /*		synchronized (totalCpusTime) {
 			totalProcessedData++;
 			totalCpusTime++;
@@ -78,6 +80,10 @@ public class Cluster {
 /*		synchronized (totalGpusTime) {
 			totalGpusTime++;
 		}*/
+	}
+	public void updateTotalTicks(int i) {
+
+		totalCpusTime.addAndGet(i);
 	}
 	public void registerGPU(GPU gpu){
 		gpus.add(gpu);

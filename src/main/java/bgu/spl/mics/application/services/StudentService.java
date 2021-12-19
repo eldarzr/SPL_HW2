@@ -44,7 +44,7 @@ public class StudentService extends MicroService {
         });
     }
     public StudentService(String name, Student student) {
-        super("Student Service");
+        super(name);
         // TODO Implement this
         this.student = student;
         subscribeBroadcast(CancelBroadcast.class, c -> terminate());
