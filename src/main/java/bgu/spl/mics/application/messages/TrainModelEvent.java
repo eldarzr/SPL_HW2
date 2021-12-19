@@ -20,8 +20,6 @@ public class TrainModelEvent implements Event<String> {
 
     @Override
     public <T> Future<T> getFuture() {
-        //if(future == null)
-        //    future = new Future<T>();
         return future;
     }
 }

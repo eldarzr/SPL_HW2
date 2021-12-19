@@ -40,8 +40,6 @@ public class GPUService extends MicroService {
     @Override
     protected void initialize() {
         // TODO Implement this
-        //subscribe();
-
     }
 
     private void onTrain(){
@@ -53,7 +51,6 @@ public class GPUService extends MicroService {
             TrainModelEvent c = trainModelsQueue.remove();
             gpu.setTrainModel(c.getModel(), c.getFuture());
         }
-        //System.out.println(getName() + " got new on train ");
         gpu.onTick();
     }
 
@@ -71,7 +68,6 @@ public class GPUService extends MicroService {
             public void call(TrainModelEvent c) {
                 trainModelsQueue.add(c);
                 System.out.println(getName() + "got the model " + c.getModel().getName());
-                //System.out.println(getName() + c.getModel().getName());
                 onTrain();
             }
         });
@@ -81,17 +77,11 @@ public class GPUService extends MicroService {
             public void call(TestModelEvent c) {
                 testModelsQueue.add(c);
                 System.out.println(getName() + "got the model " + c.getModel().getName());
-                //System.out.println(getName() + c.getModel().getName());
                 onTrain();
             }
         });
 
         subscribeBroadcast(TickBroadcast.class, tick -> {
-            //System.out.println(getName() + " got new tick");
-            //System.out.println(getName());
-/*            if(gpu.getModel()!= null)
-                System.out.println(gpu.getModel().getName());
-            else System.out.println("null");*/
             gpu.incTicks();
             onTrain();
         });
