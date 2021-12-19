@@ -127,7 +127,7 @@ public class MessageBusImpl implements MessageBus {
 	public void unregister(MicroService m) {
 		// TODO Auto-generated method stub
 
-		queues.remove(m);
+		//queues.remove(m);
 		for (ConcurrentLinkedQueue q : eventServices.values())
 			if(q.contains(m)) {
 				q.remove(m);

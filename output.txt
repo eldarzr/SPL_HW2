@@ -4,37 +4,57 @@
             "name":"Simba",
             "department":"Computer Science",
             "status":"MSc",
-            "publications":"0",
-            "papersRead":"4",
-            "trainedModels":[]
-        }
-        {
-            "name":"Zazu",
-            "department":"EE",
-            "status":"PhD",
-            "publications":"0",
-            "papersRead":"4",
-            "trainedModels":[]
-        }
-        {
-            "name":"Pumba",
-            "department":"Computer Science",
-            "status":"PhD",
             "publications":"2",
-            "papersRead":"2",
+            "papersRead":"3",
             "trainedModels":[
                 {
-                    "name":"Bert",
+                    "name":"YOLO10",
                     "data":{
-                        "type":"Text",
-                        "size":"1000000"
+                        "type":"Images",
+                        "size":"200000"
+                    },
+                    "status":"Tested",
+                    "results":"Bad"
+                },
+            
+                {
+                    "name":"ResNet9000",
+                    "data":{
+                        "type":"Images",
+                        "size":"200000"
                     },
                     "status":"Tested",
                     "results":"Good"
                 },
             
                 {
-                    "name":"GPT4",
+                    "name":"LessEfficientNet",
+                    "data":{
+                        "type":"Images",
+                        "size":"20000"
+                    },
+                    "status":"Tested",
+                    "results":"Good"
+                },
+            ]
+        }
+        {
+            "name":"Zazu",
+            "department":"EE",
+            "status":"PhD",
+            "publications":"0",
+            "papersRead":"5",
+            "trainedModels":[]
+        }
+        {
+            "name":"Pumba",
+            "department":"Computer Science",
+            "status":"PhD",
+            "publications":"1",
+            "papersRead":"4",
+            "trainedModels":[
+                {
+                    "name":"Bert",
                     "data":{
                         "type":"Text",
                         "size":"1000000"
@@ -48,8 +68,8 @@
             "name":"Timon",
             "department":"SE",
             "status":"MSc",
-            "publications":"2",
-            "papersRead":"2",
+            "publications":"1",
+            "papersRead":"4",
             "trainedModels":[
                 {
                     "name":"Percepetron",
@@ -58,7 +78,7 @@
                         "size":"1000000"
                     },
                     "status":"Tested",
-                    "results":"Good"
+                    "results":"Bad"
                 },
             
                 {
@@ -76,7 +96,7 @@
             "name":"Nala",
             "department":"Computer Science",
             "status":"PhD",
-            "publications":"0",
+            "publications":"1",
             "papersRead":"4",
             "trainedModels":[
                 {
@@ -86,7 +106,7 @@
                         "size":"100000"
                     },
                     "status":"Tested",
-                    "results":"Bad"
+                    "results":"Good"
                 },
             ]
         }
@@ -113,10 +133,10 @@
             "publications:":[
 
                 {
-                    "name":"Percepetron",
+                    "name":"YOLO9000",
                     "data":{
-                        "type":"Tabular",
-                        "size":"1000000"
+                        "type":"Images",
+                        "size":"100000"
                     },
                     "status":"Tested",
                     "results":"Good"
@@ -129,10 +149,10 @@
             "publications:":[
 
                 {
-                    "name":"GPT4",
+                    "name":"ResNet9000",
                     "data":{
-                        "type":"Text",
-                        "size":"1000000"
+                        "type":"Images",
+                        "size":"200000"
                     },
                     "status":"Tested",
                     "results":"Good"
@@ -159,9 +179,19 @@
             "name":"AISTATS",
             "date":"AISTATS",
             "publications:":[
-]
+
+                {
+                    "name":"LessEfficientNet",
+                    "data":{
+                        "type":"Images",
+                        "size":"20000"
+                    },
+                    "status":"Tested",
+                    "results":"Good"
+                },
+            ]
         }
     ],
-"cpuTimeUsed":96854,
-"gpuTimeUsed":61412,
-"batchesProcessed":17910,
+"cpuTimeUsed":297198,
+"gpuTimeUsed":71275,
+"batchesProcessed":49754,

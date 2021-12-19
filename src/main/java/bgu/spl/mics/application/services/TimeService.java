@@ -36,6 +36,7 @@ public class TimeService extends MicroService {
 		subscribeBroadcast(CancelBroadcast.class, c -> {
 			timer.cancel();
 			terminate();
+			sendBroadcast(new CancelBroadcast());
 		});
 		subscribeBroadcast(TickBroadcast.class, c ->{
 			if (counter < duration) {
