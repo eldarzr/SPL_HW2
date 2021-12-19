@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="8" failures="0" name="bgu.spl.mics.MessageBusTest" time="0.013" errors="0" skipped="0">
+<testsuite tests="8" failures="0" name="bgu.spl.mics.MessageBusTest" time="0.015" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.13+8-Ubuntu-0ubuntu1.18.04"/>
@@ -61,12 +61,12 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="bgu.spl.mics.MessageBusTest" name="testSubscribeBroadcast" time="0.006"/>
+  <testcase classname="bgu.spl.mics.MessageBusTest" name="testSubscribeBroadcast" time="0.003"/>
   <testcase classname="bgu.spl.mics.MessageBusTest" name="testRegister" time="0.002"/>
   <testcase classname="bgu.spl.mics.MessageBusTest" name="testComplete" time="0.002"/>
   <testcase classname="bgu.spl.mics.MessageBusTest" name="testUnregister" time="0"/>
   <testcase classname="bgu.spl.mics.MessageBusTest" name="testSubscribeEvent" time="0.001"/>
-  <testcase classname="bgu.spl.mics.MessageBusTest" name="testSendBroadcast" time="0"/>
-  <testcase classname="bgu.spl.mics.MessageBusTest" name="testSendEvent" time="0.001"/>
-  <testcase classname="bgu.spl.mics.MessageBusTest" name="testAwaitMessage" time="0.001"/>
+  <testcase classname="bgu.spl.mics.MessageBusTest" name="testSendBroadcast" time="0.001"/>
+  <testcase classname="bgu.spl.mics.MessageBusTest" name="testSendEvent" time="0"/>
+  <testcase classname="bgu.spl.mics.MessageBusTest" name="testAwaitMessage" time="0.006"/>
 </testsuite>

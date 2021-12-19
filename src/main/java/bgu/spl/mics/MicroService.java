@@ -133,6 +133,7 @@ public abstract class MicroService implements Runnable {
      */
     protected final <T> void complete(Event<T> e, T result) {
         //TODO: implement this.
+        e.getFuture().resolve(result);
     }
 
     /**
@@ -164,7 +165,6 @@ public abstract class MicroService implements Runnable {
      */
     @Override
     public final void run() {
-        //msgBus.register(this);
         initialize();
         while (!terminated) {
             try {
@@ -174,7 +174,6 @@ public abstract class MicroService implements Runnable {
                 Thread.currentThread().interrupt();
                 //System.out.println(getName() + " is terminated");
             }
-            //System.out.println("NOT IMPLEMENTED!!!"); //TODO: you should delete this line :)
         }
         System.out.println(getName() + " is terminated");
     }

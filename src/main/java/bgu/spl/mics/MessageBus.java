@@ -105,20 +105,6 @@ public interface MessageBus {
     boolean isEventSubscribedBy(Class<? extends Event> type, MicroService m);
 
     /**
-     * return the MicroService subscribed to event.
-     * <p>
-     * @param e the event we want to get the microService who assigned to
-     */
-    <T> MicroService getMicroServiceSubscribedToEvent(Event<T> e);
-
-    /**
-     * return the MicroServices subscribed to broadcast.
-     * <p>
-     * @param b the broadcast we want to get all the microService who assigned to
-     */
-    List<MicroService> getMicroServiceSubscribedToEvent(Broadcast b);
-
-    /**
      * Removes the message queue allocated to {@code m} via the call to
      * {@link #register(bgu.spl.mics.MicroService)} and cleans all references
      * related to {@code m} in this message-bus. If {@code m} was not

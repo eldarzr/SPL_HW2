@@ -50,14 +50,6 @@ public class GPUTest extends TestCase {
         assertTrue(gpu.getModel() == m);
     }
 
-/*    public void testReceivedProcessedData() {
-        Data data = new Data(Data.Type.Text, 0, 10000);
-       DataBatch dataBatch = new DataBatch(0,data);
-       assertFalse(gpu.getProcessedData().contains(dataBatch));
-       gpu.receivedProcessedData(dataBatch);
-       assertTrue(gpu.getProcessedData().contains(dataBatch));
-
-    }*/
 
     public void testTrainData() {
         Data data = new Data(Data.Type.Text, 0, 10000);

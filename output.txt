@@ -4,19 +4,9 @@
             "name":"Simba",
             "department":"Computer Science",
             "status":"MSc",
-            "publications":"1",
-            "papersRead":"1",
-            "trainedModels":[
-                {
-                    "name":"YOLO10",
-                    "data":{
-                        "type":"Images",
-                        "size":"200000"
-                    },
-                    "status":"Tested",
-                    "results":"Good"
-                },
-            ]
+            "publications":"0",
+            "papersRead":"2",
+            "trainedModels":[]
         }
         {
             "name":"Zazu",
@@ -30,16 +20,26 @@
             "name":"Pumba",
             "department":"Computer Science",
             "status":"PhD",
-            "publications":"0",
-            "papersRead":"2",
-            "trainedModels":[]
+            "publications":"1",
+            "papersRead":"1",
+            "trainedModels":[
+                {
+                    "name":"Bert",
+                    "data":{
+                        "type":"Text",
+                        "size":"1000000"
+                    },
+                    "status":"Tested",
+                    "results":"Good"
+                },
+            ]
         }
         {
             "name":"Timon",
             "department":"SE",
             "status":"MSc",
-            "publications":"0",
-            "papersRead":"2",
+            "publications":"1",
+            "papersRead":"1",
             "trainedModels":[
                 {
                     "name":"Percepetron",
@@ -48,7 +48,7 @@
                         "size":"1000000"
                     },
                     "status":"Tested",
-                    "results":"Bad"
+                    "results":"Good"
                 },
             ]
         }
@@ -56,19 +56,9 @@
             "name":"Nala",
             "department":"Computer Science",
             "status":"PhD",
-            "publications":"1",
-            "papersRead":"1",
-            "trainedModels":[
-                {
-                    "name":"YOLO9000",
-                    "data":{
-                        "type":"Images",
-                        "size":"100000"
-                    },
-                    "status":"Tested",
-                    "results":"Good"
-                },
-            ]
+            "publications":"0",
+            "papersRead":"2",
+            "trainedModels":[]
         }
     ],
     "conferences":[        {
@@ -77,10 +67,10 @@
             "publications:":[
 
                 {
-                    "name":"YOLO9000",
+                    "name":"Bert",
                     "data":{
-                        "type":"Images",
-                        "size":"100000"
+                        "type":"Text",
+                        "size":"1000000"
                     },
                     "status":"Tested",
                     "results":"Good"
@@ -93,10 +83,10 @@
             "publications:":[
 
                 {
-                    "name":"YOLO10",
+                    "name":"Percepetron",
                     "data":{
-                        "type":"Images",
-                        "size":"200000"
+                        "type":"Tabular",
+                        "size":"1000000"
                     },
                     "status":"Tested",
                     "results":"Good"
@@ -122,6 +112,6 @@
 ]
         }
     ],
-"cpuTimeUsed":301307,
-"gpuTimeUsed":63628,
-"batchesProcessed":49191,
+"cpuTimeUsed":299943,
+"gpuTimeUsed":63389,
+"batchesProcessed":48960,

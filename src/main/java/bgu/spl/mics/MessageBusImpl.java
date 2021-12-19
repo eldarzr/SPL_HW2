@@ -66,29 +66,20 @@ public class MessageBusImpl implements MessageBus {
 	public void sendBroadcast(Broadcast b) {
 		// TODO Auto-generated method stub
 		List<MicroService> _allb = broadcastServices.get(b.getClass());
-/*		synchronized (_allb) {
-			if(_allb != null && !_allb.isEmpty()) {*/
-		//synchronized (_allb) {
 			for (MicroService microService : _allb) {
-				//queues.get(microService).add(b);
 				ConcurrentLinkedQueue<Message> queue = queues.get(microService);
 				if (queue != null)
 					synchronized (queue) {
 						queue.add(b);
 						queue.notifyAll();
-						//if(b.getClass() == CancelBroadcast.class)
 					}
 			}
-		//}
-/*			}
-		}*/
 	}
 
 	
 	@Override
 	public <T> Future<T> sendEvent(Event<T> e) {
 		// TODO Auto-generated method stub
-		//// *** CHECK IF Q EXISTS ****
 			Queue<MicroService> ms = eventServices.get(e.getClass());
 			MicroService m;
 			//System.out.println("333333333333333333");
@@ -105,7 +96,6 @@ public class MessageBusImpl implements MessageBus {
 						queue.notifyAll();
 					}
 				}
-				//queues.get(m).add(e);
 				return e.getFuture();
 			}
 		return null;
@@ -127,14 +117,10 @@ public class MessageBusImpl implements MessageBus {
 	 */
 	public void unregister(MicroService m) {
 		// TODO Auto-generated method stub
-
-		//queues.remove(m);
 		for (ConcurrentLinkedQueue q : eventServices.values())
 			if(q.contains(m)) {
 				q.remove(m);
 			}
-/*		for (List<MicroService> q : broadcastServices.values())
-			q.remove(m);*/
 	}
 
 	@Override
@@ -173,15 +159,4 @@ public class MessageBusImpl implements MessageBus {
 		//return null;
 	}
 
-	@Override
-	public List<MicroService> getMicroServiceSubscribedToEvent(Broadcast b) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public <T> MicroService getMicroServiceSubscribedToEvent(Event<T> e) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

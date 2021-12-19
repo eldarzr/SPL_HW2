@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="7" failures="0" name="bgu.spl.mics.application.objects.GPUTest" time="0.005" errors="0" skipped="0">
+<testsuite tests="7" failures="0" name="bgu.spl.mics.application.objects.GPUTest" time="0" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.13+8-Ubuntu-0ubuntu1.18.04"/>
@@ -61,10 +61,10 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="bgu.spl.mics.application.objects.GPUTest" name="testSendUnprocessedData" time="0.003"/>
+  <testcase classname="bgu.spl.mics.application.objects.GPUTest" name="testSendUnprocessedData" time="0"/>
   <testcase classname="bgu.spl.mics.application.objects.GPUTest" name="testUpdateTick" time="0"/>
-  <testcase classname="bgu.spl.mics.application.objects.GPUTest" name="testTestModel" time="0.001"/>
-  <testcase classname="bgu.spl.mics.application.objects.GPUTest" name="testComplete" time="0.001"/>
+  <testcase classname="bgu.spl.mics.application.objects.GPUTest" name="testTestModel" time="0"/>
+  <testcase classname="bgu.spl.mics.application.objects.GPUTest" name="testComplete" time="0"/>
   <testcase classname="bgu.spl.mics.application.objects.GPUTest" name="testSetTrainModel" time="0"/>
   <testcase classname="bgu.spl.mics.application.objects.GPUTest" name="testSetTestModel" time="0"/>
   <testcase classname="bgu.spl.mics.application.objects.GPUTest" name="testTrainData" time="0"/>
