@@ -114,13 +114,7 @@ public class GPU {
             else complete();
         }
         if(model != null && model.getStatus() == Model.Status.Trained){
-            Random random = new Random();
-            double result = random.nextDouble();
-            if(result >= model.getPROBABILITY())
-                model.setResults("Good");
-            else model.setResults("Bad");
-            future.resolve("Tested");
-            model = null;
+            testModel();
         }
     }
 
@@ -138,6 +132,7 @@ public class GPU {
                 processedData.add(db);
             });
             numOfDataInProcess++;
+            //dataSent++;
         }
         cluster.updateGpuTime();
     }
@@ -176,6 +171,7 @@ public class GPU {
     public void complete(){
         // TODO Auto-generated method stub
         future.resolve("Trained");
+        //isCompleted = true;
         model = null;
     }
 
@@ -186,6 +182,13 @@ public class GPU {
      */
     public void testModel(){
         // TODO Auto-generated method stub
+        Random random = new Random();
+        double result = random.nextDouble();
+        if(result >= model.getPROBABILITY())
+            model.setResults("Good");
+        else model.setResults("Bad");
+        future.resolve("Tested");
+        model = null;
     }
     /**
      * update ticks
@@ -236,5 +239,9 @@ public class GPU {
 
     public int getDataSent() {
         return dataSent;
+    }
+
+    public int getNumOfDataInProcess() {
+        return numOfDataInProcess;
     }
 }

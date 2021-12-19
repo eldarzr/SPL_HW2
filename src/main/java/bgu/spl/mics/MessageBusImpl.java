@@ -57,6 +57,7 @@ public class MessageBusImpl implements MessageBus {
 
 	@Override
 	public <T> void complete(Event<T> e, T result) {
+		e.getFuture().resolve(result);
 		// TODO Auto-generated method stub
 
 	}
@@ -146,16 +147,18 @@ public class MessageBusImpl implements MessageBus {
 	public boolean isEventSubscribedBy(Class<? extends Event> type, MicroService m) {
 		// TODO Auto-generated method stub
 		if(eventServices.containsKey(type))
-			return false;
-		return eventServices.get(type).contains(m);
+			if(eventServices.get(type).contains(m))
+				return true;
+		return false;
 	}
 
 	@Override
 	public boolean isBroadcastSubscribedBy(Class<? extends Broadcast> type, MicroService m) {
 		// TODO Auto-generated method stub
 		if(broadcastServices.containsKey(type))
-			return false;
-		return broadcastServices.get(type).contains(m);
+			if(broadcastServices.get(type).contains(m))
+				return true;
+		return false;
 	}
 
 	@Override
