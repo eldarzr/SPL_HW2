@@ -71,6 +71,8 @@ public class StudentService extends MicroService {
             System.out.println(getName() + "send the model " + model.getName());
             //System.out.println("student " + model.getName());
             Future<String> future = sendEvent(new TrainModelEvent(model));
+            if(future == null)
+                return;
             String status = future.get();
             if(status.equals(""))
                 return;
@@ -78,6 +80,8 @@ public class StudentService extends MicroService {
             model.setStatus(status);
             System.out.println("model " + model.getName() + " is " + status);
             future = sendEvent(new TestModelEvent(model));
+            if(future == null)
+                return;
             status = future.get();
             if(status.equals(""))
                 return;

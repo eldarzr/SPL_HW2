@@ -1,6 +1,5 @@
 package bgu.spl.mics.application.objects;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 
 import java.util.ArrayList;
 import java.util.Collection;

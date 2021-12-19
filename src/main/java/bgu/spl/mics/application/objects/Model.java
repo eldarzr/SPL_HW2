@@ -1,6 +1,5 @@
 package bgu.spl.mics.application.objects;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 
 /**
  * Passive object representing a Deep Learning model.
@@ -30,8 +29,8 @@ public class Model {
 
     private double initProbability(Student.Degree degree){
         if(degree == Student.Degree.PhD)
-            return 0.8;
-        else return 0.6;
+            return 1-0.8;
+        else return 1-0.6;
     }
 
     public Status getStatus() {

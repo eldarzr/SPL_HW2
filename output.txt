@@ -4,11 +4,21 @@
             "name":"Simba",
             "department":"Computer Science",
             "status":"MSc",
-            "publications":"1",
-            "papersRead":"0",
+            "publications":"2",
+            "papersRead":"1",
             "trainedModels":[
                 {
                     "name":"YOLO10",
+                    "data":{
+                        "type":"Images",
+                        "size":"200000"
+                    },
+                    "status":"Tested",
+                    "results":"Good"
+                },
+            
+                {
+                    "name":"ResNet9000",
                     "data":{
                         "type":"Images",
                         "size":"200000"
@@ -23,7 +33,7 @@
             "department":"EE",
             "status":"PhD",
             "publications":"0",
-            "papersRead":"1",
+            "papersRead":"3",
             "trainedModels":[]
         }
         {
@@ -31,35 +41,15 @@
             "department":"Computer Science",
             "status":"PhD",
             "publications":"0",
-            "papersRead":"1",
-            "trainedModels":[
-                {
-                    "name":"Bert",
-                    "data":{
-                        "type":"Text",
-                        "size":"1000000"
-                    },
-                    "status":"Tested",
-                    "results":"Bad"
-                },
-            
-                {
-                    "name":"GPT4",
-                    "data":{
-                        "type":"Text",
-                        "size":"1000000"
-                    },
-                    "status":"Tested",
-                    "results":"Bad"
-                },
-            ]
+            "papersRead":"3",
+            "trainedModels":[]
         }
         {
             "name":"Timon",
             "department":"SE",
             "status":"MSc",
-            "publications":"0",
-            "papersRead":"1",
+            "publications":"1",
+            "papersRead":"2",
             "trainedModels":[
                 {
                     "name":"Percepetron",
@@ -68,7 +58,7 @@
                         "size":"1000000"
                     },
                     "status":"Tested",
-                    "results":"Bad"
+                    "results":"Good"
                 },
             ]
         }
@@ -77,13 +67,29 @@
             "department":"Computer Science",
             "status":"PhD",
             "publications":"0",
-            "papersRead":"1",
+            "papersRead":"3",
             "trainedModels":[]
         }
     ],
     "conferences":[        {
             "name":"ICML",
             "date":"ICML",
+            "publications:":[
+
+                {
+                    "name":"Percepetron",
+                    "data":{
+                        "type":"Tabular",
+                        "size":"1000000"
+                    },
+                    "status":"Tested",
+                    "results":"Good"
+                },
+            ]
+        }
+        {
+            "name":"NeurIPS",
+            "date":"NeurIPS",
             "publications:":[
 
                 {
@@ -98,16 +104,20 @@
             ]
         }
         {
-            "name":"NeurIPS",
-            "date":"NeurIPS",
-            "publications:":[
-]
-        }
-        {
             "name":"CVPR",
             "date":"CVPR",
             "publications:":[
-]
+
+                {
+                    "name":"ResNet9000",
+                    "data":{
+                        "type":"Images",
+                        "size":"200000"
+                    },
+                    "status":"Tested",
+                    "results":"Good"
+                },
+            ]
         }
         {
             "name":"ECCV",
@@ -122,6 +132,6 @@
 ]
         }
     ],
-"cpuTimeUsed":59270,
-"gpuTimeUsed":67594,
-"batchesProcessed":59261,
+"cpuTimeUsed":56464,
+"gpuTimeUsed":57160,
+"batchesProcessed":56464,

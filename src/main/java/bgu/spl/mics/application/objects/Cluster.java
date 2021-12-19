@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Passive object representing the cluster.
@@ -23,9 +24,9 @@ public class Cluster {
 	Collection<GPU> gpus;
 	ConcurrentHashMap<DataBatch,Callback> calls;
 	String statistics;
-	Integer totalProcessedData;
-	Integer totalCpusTime;
-	Integer totalGpusTime;
+	AtomicInteger totalProcessedData;
+	AtomicInteger totalCpusTime;
+	AtomicInteger totalGpusTime;
 
 	private static class ClusterHolder{
 		private static Cluster instance = new Cluster();
@@ -45,9 +46,9 @@ public class Cluster {
 		cpus = new ConcurrentLinkedQueue<>();
 		calls = new ConcurrentHashMap<>();
 		statistics = "";
-		totalCpusTime=0;
-		totalGpusTime=0;
-		totalProcessedData=0;
+		totalCpusTime = new AtomicInteger(0);
+		totalGpusTime= new AtomicInteger(0);
+		totalProcessedData= new AtomicInteger(0);
 	}
 
 	public void sendData(DataBatch dataBatch, Callback<DataBatch> callback){
@@ -64,16 +65,19 @@ public class Cluster {
 
 	public void sendProcessedData(DataBatch dataBatch) {
 		calls.get(dataBatch).call(dataBatch);
-		synchronized (totalCpusTime) {
+		totalProcessedData.getAndIncrement();
+		totalCpusTime.getAndIncrement();
+/*		synchronized (totalCpusTime) {
 			totalProcessedData++;
 			totalCpusTime++;
-		}
+		}*/
 	}
 
 	public void updateGpuTime() {
-		synchronized (totalGpusTime) {
+		totalGpusTime.getAndIncrement();
+/*		synchronized (totalGpusTime) {
 			totalGpusTime++;
-		}
+		}*/
 	}
 	public void registerGPU(GPU gpu){
 		gpus.add(gpu);
@@ -88,14 +92,14 @@ public class Cluster {
 	}
 
 	public Integer getTotalProcessedData() {
-		return totalProcessedData;
+		return totalProcessedData.get();
 	}
 
 	public Integer getTotalCpusTime() {
-		return totalCpusTime;
+		return totalCpusTime.get();
 	}
 
 	public Integer getTotalGpusTime() {
-		return totalGpusTime;
+		return totalGpusTime.get();
 	}
 }

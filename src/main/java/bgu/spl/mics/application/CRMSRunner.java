@@ -21,7 +21,6 @@ import java.util.List;
 import static bgu.spl.mics.application.objects.Data.Type.Images;
 import static bgu.spl.mics.application.objects.GPU.Type.RTX3090;
 import static bgu.spl.mics.application.objects.Student.Degree.MSc;
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Text;
 
 /** This is the Main class of Compute Resources Management System application. You should parse the input file,
  * create the different instances of the objects, and run the system.
@@ -30,7 +29,8 @@ import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Text;
 public class CRMSRunner {
     public static void main(String[] args) {
 
-        String path = "/home/spl211/SPL_HW2/example_input.json";
+        //String path = "/home/spl211/SPL_HW2/example_input.json";
+        String path = args[0];
         FileParser fp = new FileParser(path);
         runThreads(fp);
         fp.exportFile();
@@ -148,6 +148,11 @@ public class CRMSRunner {
             Thread t = new Thread(e);
             allThreads.add(t);
             messageBus.register(e);
+        }
+        try {
+            Thread.sleep(200);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         for(Thread t : allThreads){
             t.start();

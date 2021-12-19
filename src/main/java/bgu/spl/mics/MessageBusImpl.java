@@ -65,15 +65,20 @@ public class MessageBusImpl implements MessageBus {
 	public void sendBroadcast(Broadcast b) {
 		// TODO Auto-generated method stub
 		List<MicroService> _allb = broadcastServices.get(b.getClass());
-		for (MicroService microService : _allb) {
-			//queues.get(microService).add(b);
-			ConcurrentLinkedQueue<Message> queue = queues.get(microService);
-			synchronized (queue){
-				queue.add(b);
-				queue.notifyAll();
-				//if(b.getClass() == CancelBroadcast.class)
-			}
-		}
+/*		synchronized (_allb) {
+			if(_allb != null && !_allb.isEmpty()) {*/
+				for (MicroService microService : _allb) {
+					//queues.get(microService).add(b);
+					ConcurrentLinkedQueue<Message> queue = queues.get(microService);
+					if (queue != null)
+						synchronized (queue) {
+							queue.add(b);
+							queue.notifyAll();
+							//if(b.getClass() == CancelBroadcast.class)
+						}
+				}
+/*			}
+		}*/
 	}
 
 	
@@ -81,21 +86,26 @@ public class MessageBusImpl implements MessageBus {
 	public <T> Future<T> sendEvent(Event<T> e) {
 		// TODO Auto-generated method stub
 		//// *** CHECK IF Q EXISTS ****
-		Queue<MicroService> ms = eventServices.get(e.getClass());
-		MicroService m;
-		//System.out.println("333333333333333333");
-		synchronized (ms) {
-			m = ms.remove();
-			ms.add(m);
-			System.out.println(m.getName());
-		}
-		ConcurrentLinkedQueue<Message> queue = queues.get(m);
-		synchronized (queue){
-			queue.add(e);
-			queue.notifyAll();
-		}
-		//queues.get(m).add(e);
-		return e.getFuture();
+			Queue<MicroService> ms = eventServices.get(e.getClass());
+			MicroService m;
+			//System.out.println("333333333333333333");
+			if (ms != null && !ms.isEmpty()) {
+				synchronized (ms) {
+					m = ms.remove();
+					ms.add(m);
+					System.out.println(m.getName());
+				}
+				ConcurrentLinkedQueue<Message> queue = queues.get(m);
+				if(queue != null) {
+					synchronized (queue) {
+						queue.add(e);
+						queue.notifyAll();
+					}
+				}
+				//queues.get(m).add(e);
+				return e.getFuture();
+			}
+		return null;
 	}
 
 	@Override
@@ -116,9 +126,11 @@ public class MessageBusImpl implements MessageBus {
 		// TODO Auto-generated method stub
 
 		queues.remove(m);
-/*		for (ConcurrentLinkedQueue q : eventServices.values())
-			q.remove(m);
-		for (List<MicroService> q : broadcastServices.values())
+		for (ConcurrentLinkedQueue q : eventServices.values())
+			if(q.contains(m)) {
+				q.remove(m);
+			}
+/*		for (List<MicroService> q : broadcastServices.values())
 			q.remove(m);*/
 	}
 
