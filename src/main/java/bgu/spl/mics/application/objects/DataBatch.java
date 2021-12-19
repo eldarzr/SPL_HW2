@@ -9,10 +9,12 @@ public class DataBatch {
 
     private int index;
     private Data data;
+    private boolean isProcessed;
 
     public DataBatch(int index, Data data) {
         this.index = index;
         this.data = data;
+        isProcessed=false;
     }
 
     public int getIndex() {
@@ -24,6 +26,10 @@ public class DataBatch {
     }
 
     public boolean isProcessed(){
-        return false;
+        return isProcessed;
+    }
+
+    public void finishProcessed() {
+        isProcessed = true;
     }
 }
