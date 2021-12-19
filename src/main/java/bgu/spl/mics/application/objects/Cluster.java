@@ -60,26 +60,16 @@ public class Cluster {
 			cpus.add(curentCPU);
 		}
 		calls.put(dataBatch,callback);
-		//synchronized (curentCPU) {
 			curentCPU.addUnprocessedData(dataBatch);
-		//}
 	}
 
 	public void sendProcessedData(DataBatch dataBatch) {
 		calls.get(dataBatch).call(dataBatch);
 		totalProcessedData.getAndIncrement();
-		//totalCpusTime.getAndIncrement();
-/*		synchronized (totalCpusTime) {
-			totalProcessedData++;
-			totalCpusTime++;
-		}*/
 	}
 
 	public void updateGpuTime() {
 		totalGpusTime.getAndIncrement();
-/*		synchronized (totalGpusTime) {
-			totalGpusTime++;
-		}*/
 	}
 	public void updateTotalTicks(int i) {
 

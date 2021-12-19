@@ -61,7 +61,6 @@ public class StudentService extends MicroService {
     @Override
     protected void initialize() {
         // TODO Implement this
-        //startProcess();
         sendEvent(new ModelEvent());
     }
 
@@ -69,14 +68,12 @@ public class StudentService extends MicroService {
         if (student.hasNext()) {
             Model model = student.getCurrentModel();
             System.out.println(getName() + "send the model " + model.getName());
-            //System.out.println("student " + model.getName());
             Future<String> future = sendEvent(new TrainModelEvent(model));
             if(future == null)
                 return;
             String status = future.get();
             if(status.equals(""))
                 return;
-                //Thread.currentThread().interrupt();
             model.setStatus(status);
             System.out.println("model " + model.getName() + " is " + status);
             future = sendEvent(new TestModelEvent(model));
@@ -85,7 +82,6 @@ public class StudentService extends MicroService {
             status = future.get();
             if(status.equals(""))
                 return;
-                //Thread.currentThread().interrupt();
             model.setStatus(status);
             System.out.println("model " + model.getName() + " is " + status);
             if(model.isModelGood())

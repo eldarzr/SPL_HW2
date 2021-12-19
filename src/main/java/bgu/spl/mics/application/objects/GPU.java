@@ -77,12 +77,9 @@ public class GPU {
     }
 
     public void setTrainModel(Model model, Future future){
-        //System.out.println("gpu got new model");
         this.model=model;
         model.setStatus("Training");
         this.future = future;
-        //processedData;
-        //trainedData;
         isCompleted = false;
         dataSent=0;
 
@@ -96,7 +93,6 @@ public class GPU {
     }
 
     public void setTestModel(Model model, Future future){
-        //System.out.println("gpu got new model");
         this.model=model;
         this.future = future;
         isCompleted = false;
@@ -107,7 +103,6 @@ public class GPU {
     public void onTick() {
         if(model != null && model.getStatus() == Model.Status.Training) {
             if (trainedData.size() < model.getData().getSize() / 1000) {
-                //System.out.println(model.getName());
                 trainData();
                 sendUnprocessedData();
             }
@@ -132,7 +127,6 @@ public class GPU {
                 processedData.add(db);
             });
             numOfDataInProcess++;
-            //dataSent++;
         }
         cluster.updateGpuTime();
     }
@@ -160,7 +154,6 @@ public class GPU {
             trainedData.add(db);
             ticks = 0;
             numOfDataInProcess--;
-            //System.out.println("gpu training " + db.getIndex() +  " data from " + model.getName());
         }
     }
     /**
@@ -171,7 +164,6 @@ public class GPU {
     public void complete(){
         // TODO Auto-generated method stub
         future.resolve("Trained");
-        //isCompleted = true;
         model = null;
     }
 
@@ -197,7 +189,6 @@ public class GPU {
     public void updateTicks(){
         // TODO Auto-generated method stub
         ticks++;
-        //System.out.println("aaaa");
     }
 
     public void terminate() {

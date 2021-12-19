@@ -29,7 +29,6 @@ public class CPU {
         this.data = new ArrayList<>();
         this.cluster = Cluster.getInstance();
         data= new ConcurrentLinkedQueue<>();
-       // this.ticks = ticks;
         this.ticks = 0;
     }
 
@@ -57,7 +56,6 @@ public class CPU {
             Data.Type type = dataBatch.getData().getType();
             int requiredTick = getRequiredTicks(type);
             if (ticks >= requiredTick) {
-                //System.out.println("cpu process data");
                 dataBatch = queue.remove();
                 queue.remove(dataBatch);
                 ticks = 0;
@@ -100,7 +98,6 @@ public class CPU {
     public void updateTicks(){
         // TODO Auto-generated method stub
         ticks++;
-        //cluster.updateTotalTicks(1);
     }
 
     public void registerCluster() {

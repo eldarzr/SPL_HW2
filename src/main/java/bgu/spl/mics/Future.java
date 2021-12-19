@@ -36,11 +36,9 @@ public class Future<T> {
 		try {
 			while (!isDone()) {
 				wait();
-				//System.out.println("wait");
 			}
 			return result;
 		} catch (InterruptedException e) {
-			//System.out.println("wait");
 		}
 		return null;
 	}

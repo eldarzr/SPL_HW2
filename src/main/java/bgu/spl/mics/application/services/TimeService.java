@@ -49,7 +49,6 @@ public class TimeService extends MicroService {
 				counter++;
 			}
 			else sendBroadcast(new CancelBroadcast());
-			//System.out.println(counter);
 		});
 	}
 
